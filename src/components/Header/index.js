@@ -1,27 +1,37 @@
-import {Redirect, withRouter}  from 'react-router-dom'
+import {Redirect, withRouter, Link} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
-const Header = () => {
+import './index.css'
 
-    const onClikedLogout = () => {
-        console.log("Logged out")
-    }
+const Header = props => {
+  const onClikedLogout = () => {
+    Cookies.remove('jwt_token')
+    const {history} = props
+    history.replace('/login')
+  }
 
-    return (
-        <div className="header">
-            <img src="" className="" alt="" />
-            <nav className="nav-container">
-                <ul>
-                    <Link to='/'>
-                        <li>Home</li>
-                    </Link>
-                    <Link to='/cart'>
-                        <li>Cart</li>
-                    </Link>
-                    <button type="button" onClick={onClikedLogout} className="logout-button">Logout</button>
-                </ul>
-            </nav>
-        </div>
-
+  return (
+    <div className="header">
+      <img src="" className="" alt="" />
+      <nav className="nav-container">
+        <ul className="nav-list">
+          <Link to="/" className="nav-link">
+            <li>Home</li>
+          </Link>
+          <Link to="/cart" className="nav-link">
+            <li>Cart</li>
+          </Link>
+          <button
+            type="button"
+            onClick={onClikedLogout}
+            className="logout-button"
+          >
+            Logout
+          </button>
+        </ul>
+      </nav>
+    </div>
+  )
 }
 
-export default Header
+export default withRouter(Header)

@@ -1,24 +1,23 @@
 import {Switch, Route, Redirect} from 'react-router-dom'
 
+import LoginForm from './components/LoginForm'
+import Header from './components/Header'
+import Home from './components/Home'
+import NotFound from './components/NotFound'
+import ProtectedRoute from './components/ProtectedRoute'
+
 import './App.css'
 
-const sortByOptions = [
-  {
-    id: 0,
-    displayText: 'Highest',
-    value: 'Highest',
-  },
-  {
-    id: 2,
-    displayText: 'Lowest',
-    value: 'Lowest',
-  },
-]
-
 const App = () => (
-  <div className="app-container">
-    <h1>App container</h1>
-  </div>
+  <>
+    <Header />
+    <Switch>
+      <Route exact path="/login" component={LoginForm} />
+      <ProtectedRoute exact path="/" component={Home} />
+      <Route exact path="/not-found" component={NotFound} />
+      <Redirect to="/not-found" />
+    </Switch>
+  </>
 )
 
 export default App

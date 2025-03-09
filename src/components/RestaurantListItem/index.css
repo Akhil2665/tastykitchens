@@ -1,0 +1,26 @@
+.restaurant-list-item {
+  height: 120px;
+  width: 360px;
+  display: flex;
+  flex-direction: row;
+  margin-right: 22px;
+  margin-bottom: 52px;
+  padding: 10px;
+}
+.restaurant-image {
+  height: 100px;
+  width: 160px;
+}
+.link-item {
+  text-decoration: none;
+  color: black;
+}
+.restaurant-name {
+  font-weight: 500;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
