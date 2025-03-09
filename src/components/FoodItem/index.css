@@ -1,0 +1,39 @@
+.add-btn {
+  width: 58;
+  height: 32;
+  border-radius: 8px;
+  gap: 8px;
+  border-width: 2px;
+  padding-top: 8px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  border: 2px solid #ffa412;
+}
+.rating {
+  width: 38;
+  height: 16;
+  top: 631px;
+  left: 450px;
+}
+.food-star-icon {
+  background-color: #ffcc00;
+}
+.food-item-details {
+  font-family: 'Dm san';
+}
+.food-image {
+  width: 355px;
+  height: 180px;
+  border-radius: 8px;
+}
+.food-list-item {
+  height: 260px;
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-right: 22px;
+  margin-bottom: 52px;
+  padding: 10px;
+}
