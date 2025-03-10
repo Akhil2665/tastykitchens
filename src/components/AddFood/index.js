@@ -5,6 +5,8 @@ import Cookies from 'js-cookie'
 
 import FoodItem from '../FoodItem'
 import AddFoodRestaurant from '../AddFoodRestaurant'
+import Footer from '../Footer'
+
 import './index.css'
 
 const AddFood = () => {
@@ -66,6 +68,7 @@ const AddFood = () => {
           <FoodItem foodItemDetails={eachItem} key={eachItem.id} />
         ))}
       </ul>
+      <Footer />
     </div>
   )
 }

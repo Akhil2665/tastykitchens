@@ -1,0 +1,12 @@
+.order-now-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  background: #f7931e;
+  cursor: pointer;
+}
+
+.order-now-btn:hover {
+  scale: 1.1;
+}
