@@ -1,0 +1,11 @@
+.carousal-image {
+  height: 340px;
+  width: 95%;
+  margin: 40px;
+}
+.carousal-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

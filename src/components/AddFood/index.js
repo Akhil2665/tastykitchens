@@ -2,21 +2,20 @@ import {useParams} from 'react-router-dom'
 
 import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
-import {FaStar, FaRupeeSign} from 'react-icons/fa'
 
 import FoodItem from '../FoodItem'
-
+import AddFoodRestaurant from '../AddFoodRestaurant'
 import './index.css'
 
 const AddFood = () => {
   const [foodItemsList, setFoodItemsList] = useState()
   const [restaurantData, setRestaurantData] = useState()
 
-  const {id} = useParams()
+  const {restaurantId} = useParams()
 
   const getFoodItems = async () => {
     const jwtToken = Cookies.get('jwt_token')
-    const apiUrl = `https://apis.ccbp.in/restaurants-list/${id}`
+    const apiUrl = `https://apis.ccbp.in/restaurants-list/${restaurantId}`
     const options = {
       method: 'GET',
       headers: {
@@ -36,7 +35,9 @@ const AddFood = () => {
       reviewsCount: restaurantResponseData.reviews_count,
       foodItems: restaurantResponseData.food_items,
     })
+
     const updatedData = getUpdatedData(data)
+    // console.log(updatedData, 'updatedData')
     const updatedFoodItemsData = updatedData.foodItems.map(eachObj => ({
       cost: eachObj.cost,
       foodType: eachObj.food_type,
@@ -45,7 +46,7 @@ const AddFood = () => {
       name: eachObj.name,
       rating: eachObj.rating,
     }))
-    console.log(response, data)
+    // console.log(response, data)
     setFoodItemsList(updatedFoodItemsData)
     setRestaurantData(updatedData)
   }
@@ -54,30 +55,12 @@ const AddFood = () => {
     getFoodItems()
   }, [])
 
-  console.log('ok')
+  // console.log(restaurantData, 'new data')
   return (
     <div className="add-food-container">
-      <div className="restaurant-full-details-card">
-        <img src="" className="" alt="" />
-        <div className="restaurant-full-details">
-          <h1>Name</h1>
-          <p className="special-cuisine">Fastfood</p>
-          <p className="location">Hyd</p>
-          <div className="rating-and-price">
-            <div className="restaurant-rating-details">
-              <div className="restaurant-rating-container">
-                <FaStar className="restaurant-rating-icon" />
-                <p className="restro-rating">4.5</p>
-              </div>
-              <p className="total-ratings">200+ ratings</p>
-            </div>
-            <p className="starting-price">
-              <FaRupeeSign />
-              350 <span className="cost-for-two">Cost for two</span>
-            </p>
-          </div>
-        </div>
-      </div>
+      {restaurantData !== undefined && (
+        <AddFoodRestaurant restaurantDetails={restaurantData} />
+      )}
       <ul className="food-items-list">
         {foodItemsList?.map(eachItem => (
           <FoodItem foodItemDetails={eachItem} key={eachItem.id} />

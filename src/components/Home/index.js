@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 
 import Reactslick from '../Reactslick'
 import RestaurantListItem from '../RestaurantListItem'
+import Footer from '../Footer'
 
 import './index.css'
 
@@ -86,6 +87,7 @@ const Home = () => {
           <RestaurantListItem restaurantDetails={eachObj} key={eachObj.id} />
         ))}
       </ul>
+      <Footer />
     </div>
   )
 }

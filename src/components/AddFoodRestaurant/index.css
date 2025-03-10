@@ -1,0 +1,17 @@
+.restaurant-full-details-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #333333;
+  height: 380px;
+  border-radius: 12px;
+  color: white;
+  margin: 20px;
+  padding: 40px;
+}
+.restaurant-full-image {
+  height: 320px;
+  width: 600px;
+  border-radius: 12px;
+  margin-right: 20px;
+}
