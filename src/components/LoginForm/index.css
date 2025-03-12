@@ -58,6 +58,7 @@
   color: white;
   background: #f7931e;
   margin-top: 30px;
+  cursor: pointer;
 }
 .err-msg {
   color: red;

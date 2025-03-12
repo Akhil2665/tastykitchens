@@ -1,5 +1,7 @@
 import {FaStar, FaRupeeSign} from 'react-icons/fa'
 
+import CartContext from '../../context/CartContext'
+
 import './index.css'
 
 const FoodItem = props => {
@@ -7,7 +9,7 @@ const FoodItem = props => {
   const {id, name, rating, imageUrl, cost, foodType} = foodItemDetails
 
   return (
-    <>
+    <CartContext.Consumer>
       <li className="food-list-item">
         <img src={imageUrl} className="food-image" alt={name} />
         <div className="food-item-details">
@@ -24,7 +26,7 @@ const FoodItem = props => {
           </button>
         </div>
       </li>
-    </>
+    </CartContext.Consumer>
   )
 }
 

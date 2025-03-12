@@ -10,3 +10,26 @@
 .order-now-btn:hover {
   scale: 1.1;
 }
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+.cart-container {
+  background-color: #f9fbfe;
+  border-radius: 8px;
+  min-height: 500px;
+  width: 94%;
+  padding: 10px;
+}
+
+.row-names {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.row-name {
+  width: 33%;
+  text-align: center;
+}
