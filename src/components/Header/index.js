@@ -12,7 +12,16 @@ const Header = props => {
 
   return (
     <div className="header">
-      <img src="" className="" alt="" />
+      <Link to="/" className="nav-link">
+        <div className="logo-container">
+          <img
+            src="https://res.cloudinary.com/dak8sudez/image/upload/v1741532996/Frame_274_r9hgm0.jpg"
+            className="web-logo"
+            alt="web logo"
+          />
+          <h1 className="logo-heading">Tasty Kitchens</h1>
+        </div>
+      </Link>
       <nav className="nav-container">
         <ul className="nav-list">
           <Link to="/" className="nav-link">

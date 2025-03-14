@@ -13,13 +13,16 @@ import CartContext from './context/CartContext'
 
 import './App.css'
 
+const storedCartList = JSON.parse(localStorage.getItem('cart_list'))
+
 class App extends Component {
   state = {
-    cartList: [],
+    cartList: storedCartList,
   }
 
   addCartItem = product => {
     const {cartList} = this.state
+    console.log('item added to cart')
     const updateQuantityCartList = cartList.map(eachItem =>
       eachItem.id === product.id
         ? {...eachItem, quantity: eachItem.quantity + product.quantity}
@@ -47,6 +50,7 @@ class App extends Component {
   }
 
   decrementCartItemQuantity = id => {
+    console.log('decrement quant')
     const {cartList} = this.state
 
     const updatedList = cartList.map(eachItem =>
@@ -59,6 +63,7 @@ class App extends Component {
   }
 
   incrementCartItemQuantity = id => {
+    console.log('increment quant')
     const {cartList} = this.state
 
     const updatedList = cartList.map(eachItem =>
@@ -83,6 +88,9 @@ class App extends Component {
 
   render() {
     const {cartList} = this.state
+
+    localStorage.setItem('cart_list', JSON.stringify(cartList))
+    console.log(cartList, 'not stored')
     return (
       <CartContext.Provider
         value={{

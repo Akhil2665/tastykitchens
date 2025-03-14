@@ -4,3 +4,8 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+.select-element {
+  height: 50px;
+  width: 200px;
+  padding: 8px;
+}

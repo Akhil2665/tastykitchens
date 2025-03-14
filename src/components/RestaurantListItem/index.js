@@ -12,17 +12,15 @@ const RestaurantListItem = props => {
   return (
     <>
       <Link to={`/restaurants/${id}`} className="link-item">
-        <li className="restaurant-list-item">
+        <li className="restaurant-list-item" testid="restaurant-item">
           <img src={imageUrl} alt="name" className="restaurant-image" />
           <div className="restaurant-details-container">
-            <p className="restaurant-name">{name}</p>
-            <p>{cuisine}</p>
+            <h1 className="restaurant-name">{name}</h1>
+            <p className="cuisine">{cuisine}</p>
             <div className="rating-container">
               <FaStar className="rating-icon" />
-              <p className="rating">
-                {rating}{' '}
-                <span className="rating-count">({totalReviews} ratings)</span>
-              </p>
+              <p className="rating">{rating} </p>
+              <h1 className="rating-count">({totalReviews} ratings)</h1>
             </div>
           </div>
         </li>

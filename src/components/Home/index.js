@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, Component} from 'react'
 // import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -21,16 +21,25 @@ const sortByOptions = [
   },
 ]
 
-const Home = () => {
+class Home extends Component {
   // const [restaurant, setRestaurant] = useState({})
-  const [restaurantList, setRestaurantList] = useState([])
-  const jwtTokwn = Cookies.get('jwt_token')
+  state = {
+    restaurantList: [],
+    sortByOption: 'Highest',
+  }
+
   // console.log(jwtTokwn)
 
-  const getRestaurantList = async () => {
+  componentDidMount() {
+    this.getRestaurantList()
+  }
+
+  getRestaurantList = async () => {
+    const {sortByOption} = this.state
+    const jwtTokwn = Cookies.get('jwt_token')
     const limit = 9
     const offset = 0
-    const apiUrl = `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${limit}`
+    const apiUrl = `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${limit}&sort_by_rating=${sortByOption}`
     const options = {
       method: 'GET',
       headers: {
@@ -53,43 +62,61 @@ const Home = () => {
         },
       }))
       console.log('ok')
-      setRestaurantList(updatedData)
+      // setRestaurantList(updatedData)
+      this.setState({
+        restaurantList: updatedData,
+      })
     } else {
       console.log('failed')
     }
   }
 
-  useEffect(() => {
-    getRestaurantList()
-  }, [])
+  onChangeSortByValue = event => {
+    this.setState(
+      {
+        sortByOption: event.target.value,
+      },
+      this.getRestaurantList,
+    )
+  }
 
-  return (
-    <div className="app-container">
-      <Reactslick />
-      <div className="filter-bar">
-        <h1 className="restaurants-heading">Popular Restaurants</h1>
-        <div className="about-and-filter">
-          <p className="restaurants-about">
-            Select Your favourite restaurant special dish and make your day
-            happy...
-          </p>
-          <select className="select-element">
-            {sortByOptions.map(eachOption => (
-              <option value={eachOption.value} key={eachOption.id}>
-                Sort by {eachOption.displayText}
-              </option>
-            ))}
-          </select>
+  render() {
+    const {restaurantList, sortByOption} = this.state
+    return (
+      <div className="app-container">
+        <Reactslick />
+        <div className="filter-bar">
+          <h1 className="restaurants-heading">Popular Restaurants</h1>
+          <div className="about-and-filter">
+            <p className="restaurants-about">
+              Select Your favourite restaurant special dish and make your day
+              happy...
+            </p>
+            <div className="selector-container">
+              <h1 className="sort-heading">Sort by </h1>
+              <select
+                className="select-element"
+                onChange={this.onChangeSortByValue}
+                value={sortByOption}
+              >
+                {sortByOptions.map(eachOption => (
+                  <option value={eachOption.value} key={eachOption.id}>
+                    {eachOption.displayText}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
+        <ul className="restaurant-list-container">
+          {restaurantList.map(eachObj => (
+            <RestaurantListItem restaurantDetails={eachObj} key={eachObj.id} />
+          ))}
+        </ul>
+        <Footer />
       </div>
-      <ul className="restaurant-list-container">
-        {restaurantList.map(eachObj => (
-          <RestaurantListItem restaurantDetails={eachObj} key={eachObj.id} />
-        ))}
-      </ul>
-      <Footer />
-    </div>
-  )
+    )
+  }
 }
 
 export default Home

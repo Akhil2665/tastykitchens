@@ -1,4 +1,4 @@
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 import './index.css'
 
@@ -19,13 +19,11 @@ function NotFound() {
         We are sorry, the page you requested could not be found. Please go back
         to the homepage
       </p>
-      <button
-        className="home-page-btn"
-        type="button"
-        onClick={onClickedGoHomePage}
-      >
-        Go To Home Page
-      </button>
+      <Link to="/" className="link-not-found">
+        <button className="home-page-btn" type="button">
+          Go To Home Page
+        </button>
+      </Link>
     </div>
   )
 }

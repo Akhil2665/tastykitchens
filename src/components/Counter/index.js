@@ -1,34 +1,41 @@
-import {Component} from 'react'
+import CartContext from '../../context/CartContext'
 
 import './index.css'
 
-class Counter extends Component {
-  state = {
-    countValue: 0,
-  }
+const Counter = props => (
+  <CartContext.Consumer>
+    {value => {
+      const {incrementCartItemQuantity, decrementCartItemQuantity} = value
+      const {cartItemDetails} = props
+      const {id, quantity} = cartItemDetails
 
-  onDecrement = () => {
-    this.setState(prevState => ({countValue: prevState.countValue - 1}))
-  }
+      console.log(id, quantity, 'quant')
 
-  onIncrement = () => {
-    this.setState(prevState => ({countValue: prevState.countValue + 1}))
-  }
+      const onIncrement = () => incrementCartItemQuantity(id)
+      const onDecrement = () => decrementCartItemQuantity(id)
 
-  render() {
-    const {countValue} = this.state
-    return (
-      <div className="counter">
-        <button type="button" onClick={this.onDecrement}>
-          -
-        </button>
-        <div className="count-value">{countValue}</div>
-        <button type="button" onClick={this.onIncrement}>
-          +
-        </button>
-      </div>
-    )
-  }
-}
+      return (
+        <div className="counter" testid="item-quantity">
+          <button
+            type="button"
+            onClick={onDecrement}
+            testid="decrement-quantity"
+          >
+            -
+          </button>
+          <div className="count-value">{quantity}</div>
+
+          <button
+            type="button"
+            onClick={onIncrement}
+            testid="increment-quantity"
+          >
+            +
+          </button>
+        </div>
+      )
+    }}
+  </CartContext.Consumer>
+)
 
 export default Counter

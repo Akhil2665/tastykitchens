@@ -43,15 +43,17 @@ const Reactslick = () => {
   return (
     <>
       <Slider {...settings}>
-        {carousalImagesList.map(eachData => (
-          <div className="carousal-image-container" key={eachData.id}>
-            <img
-              src={eachData.imageUrl}
-              alt="carousal"
-              className="carousal-image"
-            />
-          </div>
-        ))}
+        <ul className="offer-list">
+          {carousalImagesList.map(eachData => (
+            <li className="carousal-image-container" key={eachData.id}>
+              <img
+                src={eachData.imageUrl}
+                alt="offer"
+                className="carousal-image"
+              />
+            </li>
+          ))}
+        </ul>
       </Slider>
     </>
   )

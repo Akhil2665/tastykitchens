@@ -33,3 +33,10 @@
   width: 33%;
   text-align: center;
 }
+.cart-value-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 40px;
+}

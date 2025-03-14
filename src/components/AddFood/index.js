@@ -1,21 +1,30 @@
-import {useParams} from 'react-router-dom'
+import {Component} from 'react'
 
-import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 
 import FoodItem from '../FoodItem'
 import AddFoodRestaurant from '../AddFoodRestaurant'
 import Footer from '../Footer'
+import CartContext from '../../context/CartContext'
 
 import './index.css'
 
-const AddFood = () => {
-  const [foodItemsList, setFoodItemsList] = useState()
-  const [restaurantData, setRestaurantData] = useState()
+class AddFood extends Component {
+  state = {
+    foodItemsList: [],
+    restaurantData: {},
+  }
+  // const [foodItemsList, setFoodItemsList] = useState()
+  // const [restaurantData, setRestaurantData] = useState()
 
-  const {restaurantId} = useParams()
+  componentDidMount() {
+    this.getFoodItems()
+  }
 
-  const getFoodItems = async () => {
+  getFoodItems = async () => {
+    const {match} = this.props
+    const {params} = match
+    const {restaurantId} = params
     const jwtToken = Cookies.get('jwt_token')
     const apiUrl = `https://apis.ccbp.in/restaurants-list/${restaurantId}`
     const options = {
@@ -47,30 +56,55 @@ const AddFood = () => {
       id: eachObj.id,
       name: eachObj.name,
       rating: eachObj.rating,
+      quantity: 0,
     }))
-    // console.log(response, data)
-    setFoodItemsList(updatedFoodItemsData)
-    setRestaurantData(updatedData)
+
+    this.setState({
+      foodItemsList: updatedFoodItemsData,
+      restaurantData: updatedData,
+    })
   }
 
-  useEffect(() => {
-    getFoodItems()
-  }, [])
+  render() {
+    return (
+      <CartContext.Consumer>
+        {value => {
+          const {cartList} = value
+          const {foodItemsList, restaurantData} = this.state
 
-  // console.log(restaurantData, 'new data')
-  return (
-    <div className="add-food-container">
-      {restaurantData !== undefined && (
-        <AddFoodRestaurant restaurantDetails={restaurantData} />
-      )}
-      <ul className="food-items-list">
-        {foodItemsList?.map(eachItem => (
-          <FoodItem foodItemDetails={eachItem} key={eachItem.id} />
-        ))}
-      </ul>
-      <Footer />
-    </div>
-  )
+          return (
+            <div className="add-food-container">
+              {restaurantData !== undefined && (
+                <AddFoodRestaurant restaurantDetails={restaurantData} />
+              )}
+              <ul className="food-items-list">
+                {foodItemsList?.map(eachItem => (
+                  <FoodItem foodItemDetails={eachItem} key={eachItem.id} />
+                ))}
+              </ul>
+              <Footer />
+            </div>
+          )
+        }}
+      </CartContext.Consumer>
+    )
+  }
 }
 
 export default AddFood
+
+// const isItemPresentedInCart = id => {
+//             const filterObjects = cartList.filter(
+//               eachItem => eachItem.id === id,
+//             )
+//             return filterObjects
+//           }
+
+//           console.log(isItemPresentedInCart(), 'founded')
+//           debugger
+//           const filteredFoodList = foodItemsList?.map(eachObj => {
+//             const isItemPresent = isItemPresentedInCart(eachObj.id)
+
+//             return isItemPresent ? {...isItemPresentedInCart[0]} : {...eachObj}
+//           })
+//           console.log(filteredFoodList, 'filteredFoodList')

@@ -1,25 +1,30 @@
-import {FaStar, FaRupeeSign} from 'react-icons/fa'
+import {FaRupeeSign} from 'react-icons/fa'
 
 import Counter from '../Counter'
 
 import './index.css'
 
-const CartItem = () => {
+// const getCartList = JSON.parse(localStorage.getItem('cart_list')) //
+
+const CartItem = props => {
   console.log('cart item loogedd')
+  const {cartItemDetails} = props
+  const {id, name, rating, imageUrl, cost, quantity} = cartItemDetails
+
   return (
     <>
-      <li className="cart-list-item">
+      <li className="cart-list-item" testid="cartItem">
         <div className="item-name-container">
-          <img src="" alt="" className="cart-item-image" />
-          <p className="cart-item-heading">Item name</p>
+          <img src={imageUrl} alt={name} className="cart-item-image" />
+          <h1 className="cart-item-heading">{name}</h1>
         </div>
         <div className="counter-container">
-          <Counter />
+          <Counter cartItemDetails={cartItemDetails} />
         </div>
         <div className="price-container">
           <p className="item-price">
             <FaRupeeSign />
-            20000
+            {quantity * cost}
           </p>
         </div>
       </li>

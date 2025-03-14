@@ -12,9 +12,9 @@ const NoOrders = () => {
       <img
         src="https://res.cloudinary.com/dak8sudez/image/upload/v1741603507/OBJECTS_idstm7.png"
         className="no-orders-image"
-        alt="no orders"
+        alt="empty cart"
       />
-      <h1 className="no-orders-heading">No Orders Yet!</h1>
+      <h1 className="no-orders-heading">No Order Yet!</h1>
       <p className="no-orders-about">
         Your cart is empty. Add something from the menu.
       </p>
@@ -23,7 +23,7 @@ const NoOrders = () => {
         type="button"
         onClick={onClickedGoHomePage}
       >
-        Order Now
+        Order now
       </button>
     </div>
   )

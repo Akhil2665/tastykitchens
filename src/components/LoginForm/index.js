@@ -63,7 +63,7 @@ const LoginForm = props => {
         <div className="logo-container">
           <img
             src="https://res.cloudinary.com/dak8sudez/image/upload/v1741532996/Frame_274_r9hgm0.jpg"
-            alt="logo"
+            alt="website logo"
             className="form-logo"
           />
           <h1 className="logo-heading">Tasty Kitchens</h1>
@@ -104,7 +104,7 @@ const LoginForm = props => {
       </div>
       <img
         src="https://res.cloudinary.com/dak8sudez/image/upload/v1741533740/Rectangle_1456_1_m6swv9.png"
-        alt="login page"
+        alt="website login"
         className="login-image"
       />
     </div>

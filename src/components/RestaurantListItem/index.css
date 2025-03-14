@@ -1,6 +1,6 @@
 .restaurant-list-item {
   height: 160px;
-  width: 380px;
+  width: 400px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -9,8 +9,8 @@
   padding: 10px;
 }
 .restaurant-image {
-  height: 100%;
-  width: 160px;
+  height: 160px;
+  width: 220px;
   margin-right: 8px;
   border-radius: 8px;
 }
@@ -26,9 +26,14 @@
 .restaurant-name {
   font-weight: 500;
 }
-
+.cuisine {
+  font-size: 12px;
+}
 .rating-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.rating-icon {
+  color: #dbb240;
 }

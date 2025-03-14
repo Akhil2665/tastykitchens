@@ -1,4 +1,4 @@
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 import './index.css'
 
@@ -19,13 +19,11 @@ const PaymentSuccessful = () => {
       <p className="payment-successful-about">
         Thank you for ordering <br /> Your payment is successfully completed.{' '}
       </p>
-      <button
-        className="home-page-btn"
-        type="button"
-        onClick={onClickedGoHomePage}
-      >
-        Go To Home Page
-      </button>
+      <Link to="/" className="link-item">
+        <button className="home-page-btn" type="button">
+          Go To Home Page
+        </button>
+      </Link>
     </div>
   )
 }
