@@ -1,4 +1,4 @@
-import {useState, useEffect, Component} from 'react'
+import {Component} from 'react'
 // import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
@@ -26,6 +26,7 @@ class Home extends Component {
   state = {
     restaurantList: [],
     sortByOption: 'Highest',
+    pageNumber: 1,
   }
 
   // console.log(jwtTokwn)
@@ -35,10 +36,16 @@ class Home extends Component {
   }
 
   getRestaurantList = async () => {
-    const {sortByOption} = this.state
+    const {sortByOption, pageNumber} = this.state
     const jwtTokwn = Cookies.get('jwt_token')
     const limit = 9
-    const offset = 0
+    let offset
+    if (pageNumber === 1) {
+      offset = 0
+    } else {
+      offset = (pageNumber - 1) * limit
+    }
+
     const apiUrl = `https://apis.ccbp.in/restaurants-list?offset=${offset}&limit=${limit}&sort_by_rating=${sortByOption}`
     const options = {
       method: 'GET',
@@ -80,8 +87,25 @@ class Home extends Component {
     )
   }
 
+  onDecrementPageValue = () => {
+    const {pageNumber} = this.state
+    if (pageNumber > 1) {
+      this.setState(
+        prevState => ({pageNumber: prevState.pageNumber - 1}),
+        this.getRestaurantList,
+      )
+    }
+  }
+
+  onIncrementPageValue = () => {
+    this.setState(
+      prevState => ({pageNumber: prevState.pageNumber + 1}),
+      this.getRestaurantList,
+    )
+  }
+
   render() {
-    const {restaurantList, sortByOption} = this.state
+    const {restaurantList, sortByOption, pageNumber} = this.state
     return (
       <div className="app-container">
         <Reactslick />
@@ -113,6 +137,26 @@ class Home extends Component {
             <RestaurantListItem restaurantDetails={eachObj} key={eachObj.id} />
           ))}
         </ul>
+        <div className="page-selection-container">
+          <button
+            type="button"
+            onClick={this.onDecrementPageValue}
+            testid="pagination-left-button"
+          >
+            -
+          </button>
+          <span className="page-number" testid="active-page-number">
+            {pageNumber}
+          </span>
+
+          <button
+            type="button"
+            onClick={this.onIncrementPageValue}
+            testid="pagination-right-button"
+          >
+            +
+          </button>
+        </div>
         <Footer />
       </div>
     )

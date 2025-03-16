@@ -13,26 +13,27 @@ import CartContext from './context/CartContext'
 
 import './App.css'
 
-const storedCartList = JSON.parse(localStorage.getItem('cart_list'))
+const storedCartList = JSON.parse(localStorage.getItem('cartData'))
+const initialCartArray = storedCartList || []
 
 class App extends Component {
   state = {
-    cartList: storedCartList,
+    cartList: initialCartArray,
   }
 
   addCartItem = product => {
     const {cartList} = this.state
     console.log('item added to cart')
-    const updateQuantityCartList = cartList.map(eachItem =>
-      eachItem.id === product.id
-        ? {...eachItem, quantity: eachItem.quantity + product.quantity}
-        : eachItem,
-    )
 
     const existingProduct = cartList.find(
       eachItem => eachItem.id === product.id,
     )
     if (existingProduct) {
+      const updateQuantityCartList = cartList.map(eachItem =>
+        eachItem.id === product.id
+          ? {...eachItem, quantity: eachItem.quantity + product.quantity}
+          : eachItem,
+      )
       this.setState({cartList: updateQuantityCartList})
     } else {
       this.setState(prevState => ({cartList: [...prevState.cartList, product]}))
@@ -89,7 +90,7 @@ class App extends Component {
   render() {
     const {cartList} = this.state
 
-    localStorage.setItem('cart_list', JSON.stringify(cartList))
+    localStorage.setItem('cartData', JSON.stringify(cartList))
     console.log(cartList, 'not stored')
     return (
       <CartContext.Provider
@@ -114,7 +115,7 @@ class App extends Component {
           />
           <ProtectedRoute
             exact
-            path="/restaurants/:restaurantId"
+            path="/restaurant/:restaurantId"
             component={AddFood}
           />
           <Route exact path="/not-found" component={NotFound} />

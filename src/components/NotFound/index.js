@@ -4,9 +4,7 @@ import './index.css'
 
 function NotFound() {
   const history = useHistory()
-  const onClickedGoHomePage = () => {
-    history.push('/')
-  }
+
   return (
     <div className="page-not-found-container">
       <img

@@ -23,7 +23,9 @@ const Counter = props => (
           >
             -
           </button>
-          <div className="count-value">{quantity}</div>
+          <div className="count-value" testid="item-quantity">
+            {quantity}
+          </div>
 
           <button
             type="button"

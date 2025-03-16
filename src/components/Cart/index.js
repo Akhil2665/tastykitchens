@@ -25,7 +25,7 @@ const Cart = props => {
   return (
     <CartContext.Consumer>
       {value => {
-        const {cartList} = value
+        const {cartList, removeAllCartItems} = value
         console.log(cartList, 'cartList')
         let totalCartAmount = 0
         if (cartList.length > 0) {
@@ -34,11 +34,21 @@ const Cart = props => {
           )
           totalCartAmount = cartValueList.reduce((acc, curr) => acc + curr, 0)
         }
+        const onClickedRemoveAll = () => removeAllCartItems()
 
         return (
           <>
             {cartList.length > 0 ? (
               <div className="cart-container">
+                <div className="remove-all-button-container">
+                  <button
+                    type="button"
+                    onClick={onClickedRemoveAll}
+                    className="remove-all-button"
+                  >
+                    Remove all
+                  </button>
+                </div>
                 <div className="row-names">
                   <h1 className="row-name">Item</h1>
                   <h1 className="row-name">Quantity</h1>

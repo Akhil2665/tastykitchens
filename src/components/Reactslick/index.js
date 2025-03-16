@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import Cookies from 'js-cookie'
 import Slider from 'react-slick'
 
@@ -42,8 +42,8 @@ const Reactslick = () => {
   }, [])
   return (
     <>
-      <Slider {...settings}>
-        <ul className="offer-list">
+      <ul className="offer-list">
+        <Slider {...settings}>
           {carousalImagesList.map(eachData => (
             <li className="carousal-image-container" key={eachData.id}>
               <img
@@ -53,8 +53,8 @@ const Reactslick = () => {
               />
             </li>
           ))}
-        </ul>
-      </Slider>
+        </Slider>
+      </ul>
     </>
   )
 }

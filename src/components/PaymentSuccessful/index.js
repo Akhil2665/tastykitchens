@@ -5,9 +5,6 @@ import './index.css'
 const PaymentSuccessful = () => {
   console.log('PaymentSuccessful')
   const history = useHistory()
-  const onClickedGoHomePage = () => {
-    history.push('/')
-  }
   return (
     <div className="payment-successful-container">
       <img

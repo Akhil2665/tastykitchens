@@ -1,106 +1,66 @@
-import {useContext, Component} from 'react'
+import {useContext, useState, useEffect} from 'react'
 
 import {FaStar, FaRupeeSign} from 'react-icons/fa'
 
-import CartContext from '../../context/CartContext'
-
 import FoodItemCounter from '../FoodItemCounter'
+import CartContext from '../../context/CartContext'
 
 import './index.css'
 
-class FoodItem extends Component {
-  state = {
-    productItem: {},
-    quantityVal: 0,
-    isItemAdded: false,
-  }
-  // const addItem = useContext(addCartItem)
-  // onClickedAddItem = () => (
-  //   <CartContext.Consumer>
-  //     {value => {
-  //       const {addCartItem} = value
-  //       const {foodItemDetails} = this.props
-  //       const {quantity} = foodItemDetails
-  //       console.log('added to cart', quantity)
-  //       addCartItem(foodItemDetails)
-  //     }}
-  //   </CartContext.Consumer>
-  // )
+const FoodItem = props => {
+  const {foodItemDetails} = props
+  const {id, name, rating, imageUrl, cost, quantity} = foodItemDetails
+  const [quantityVal, setQuantityVal] = useState(0)
+  const {addCartItem} = useContext(CartContext)
 
-  // getItemAddedToCart = () => {
-  //   const {isItemAdded} = this.state
-  //   if (isItemAdded) {
-  //     addCartItem()
-  //   }
-  // }
-
-  onChangeQunatity = () => {
-    this.setState(prevState => ({
-      quantityVal: prevState.quantityVal + 1,
-      isItemAdded: true,
-    }))
-    return (
-      <CartContext.Consumer>
-        {value => {
-          const {addCartItem} = value
-          const {foodItemDetails} = this.props
-          console.log("why it's added")
-          addCartItem(foodItemDetails)
-        }}
-      </CartContext.Consumer>
-    )
+  const updateCartList = () => {
+    console.log(quantityVal)
+    if (quantityVal > 0) {
+      addCartItem({...foodItemDetails, quantity: quantityVal})
+    }
   }
 
-  onClickedDecrement = () =>
-    this.setState(prevState => ({quantityVal: prevState.quantityVal - 1}))
+  useEffect(() => {
+    updateCartList()
+  }, [quantityVal])
 
-  onClickedIncrement = () =>
-    this.setState(prevState => ({quantityVal: prevState.quantityVal + 1}))
+  const onChangeQunatity = () => {
+    setQuantityVal(state => state + 1)
+  }
 
-  renderAddButton = id => {
-    const {quantityVal} = this.state
-    debugger
-    return quantityVal > 0 ? (
+  const onClickedDecrement = () => setQuantityVal(state => state - 1)
+
+  const onClickedIncrement = () => setQuantityVal(state => state + 1)
+
+  const renderAddButton = () =>
+    quantityVal > 0 ? (
       <FoodItemCounter
-        onClickedDecrement={this.onClickedDecrement}
-        onClickedIncrement={this.onClickedIncrement}
+        onClickedDecrement={onClickedDecrement}
+        onClickedIncrement={onClickedIncrement}
         quantity={quantityVal}
       />
     ) : (
-      <button className="add-btn" type="button" onClick={this.onChangeQunatity}>
+      <button className="add-btn" type="button" onClick={onChangeQunatity}>
         Add
       </button>
     )
-  }
 
-  render() {
-    return (
-      <CartContext.Consumer>
-        {value => {
-          const {addCartItem} = value
-          const {foodItemDetails} = this.props
-          const {id, name, rating, imageUrl, cost, quantity} = foodItemDetails
-          const {quantityVal} = this.state
-          return (
-            <li className="food-list-item" testid="foodItem">
-              <img src={imageUrl} className="food-image" alt={name} />
-              <div className="food-item-details">
-                <h1 className="food-name">{name}</h1>
-                <p className="cost">
-                  <FaRupeeSign /> {cost}.00
-                </p>
-                <p className="rating">
-                  <FaStar className="food-star-icon" />
-                  {rating}
-                </p>
-                {this.renderAddButton(id)}
-              </div>
-            </li>
-          )
-        }}
-      </CartContext.Consumer>
-    )
-  }
+  return (
+    <li className="food-list-item" testid="foodItem">
+      <img src={imageUrl} className="food-image" alt={name} />
+      <div className="food-item-details">
+        <h1 className="food-name">{name}</h1>
+        <p className="cost">
+          <FaRupeeSign /> {cost}.00
+        </p>
+        <p className="rating">
+          <FaStar className="food-star-icon" />
+          {rating}
+        </p>
+        {renderAddButton()}
+      </div>
+    </li>
+  )
 }
 
 export default FoodItem
