@@ -18,8 +18,8 @@ const RestaurantListItem = props => {
             <p className="cuisine">{cuisine}</p>
             <div className="rating-container">
               <FaStar className="rating-icon" />
-              <h1 className="rating">{rating} </h1>
-              <p className="rating-count">({totalReviews} ratings)</p>
+              <p className="rating">{rating} </p>
+              <h1 className="rating-count">({totalReviews} ratings)</h1>
             </div>
           </div>
         </li>

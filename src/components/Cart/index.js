@@ -17,16 +17,14 @@ const Cart = props => {
   // const cartList = localStorage.getItem('cart_list')
   const {history} = props
   console.log('cart loogedd')
-  const onClickedPlaceOrder = () => {
-    history.push('/payment-successful')
-  }
+
   // const newcartList = JSON.parse(localStorage.getItem('cart_list'))
   // console.log(newcartList, 'new')
   return (
     <CartContext.Consumer>
       {value => {
         const {cartList, removeAllCartItems} = value
-        console.log(cartList, 'cartList')
+        // console.log(cartList, 'cartList')
         let totalCartAmount = 0
         if (cartList.length > 0) {
           const cartValueList = cartList.map(
@@ -35,6 +33,10 @@ const Cart = props => {
           totalCartAmount = cartValueList.reduce((acc, curr) => acc + curr, 0)
         }
         const onClickedRemoveAll = () => removeAllCartItems()
+        const onClickedPlaceOrder = () => {
+          removeAllCartItems()
+          history.push('/payment-successful')
+        }
 
         return (
           <>
@@ -52,7 +54,7 @@ const Cart = props => {
                 <div className="row-names">
                   <h1 className="row-name">Item</h1>
                   <h1 className="row-name">Quantity</h1>
-                  <h1 className="row-name">Price</h1>
+                  <h1 className="row-name-price">Price</h1>
                 </div>
                 <ul className="cart-list">
                   {cartList.map(eachObj => (
@@ -63,7 +65,7 @@ const Cart = props => {
                 <div className="cart-value-container">
                   <h1 className="cart-value-heading">Order Total:</h1>
                   <div className="total-amount-order-now">
-                    <p className="price" testid="total-price">
+                    <p className="total-price" testid="total-price">
                       {totalCartAmount}
                     </p>
                     <button

@@ -1,6 +1,7 @@
 import {Component} from 'react'
 // import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
+import {FaAngleLeft, FaAngleRight} from 'react-icons/fa'
 
 import Reactslick from '../Reactslick'
 import RestaurantListItem from '../RestaurantListItem'
@@ -25,7 +26,7 @@ class Home extends Component {
   // const [restaurant, setRestaurant] = useState({})
   state = {
     restaurantList: [],
-    sortByOption: 'Highest',
+    sortByOption: 'Lowest',
     pageNumber: 1,
   }
 
@@ -117,7 +118,7 @@ class Home extends Component {
               happy...
             </p>
             <div className="selector-container">
-              <h1 className="sort-heading">Sort by </h1>
+              <p className="sort-heading">Sort by </p>
               <select
                 className="select-element"
                 onChange={this.onChangeSortByValue}
@@ -143,7 +144,8 @@ class Home extends Component {
             onClick={this.onDecrementPageValue}
             testid="pagination-left-button"
           >
-            -
+            {' '}
+            <FaAngleLeft />{' '}
           </button>
           <span className="page-number" testid="active-page-number">
             {pageNumber}
@@ -154,7 +156,8 @@ class Home extends Component {
             onClick={this.onIncrementPageValue}
             testid="pagination-right-button"
           >
-            +
+            {' '}
+            <FaAngleRight />
           </button>
         </div>
         <Footer />

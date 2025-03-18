@@ -11,12 +11,12 @@ const FoodItem = props => {
   const {foodItemDetails} = props
   const {id, name, rating, imageUrl, cost, quantity} = foodItemDetails
   const [quantityVal, setQuantityVal] = useState(0)
-  const {addCartItem} = useContext(CartContext)
+  const {addOrUpdateCartItem} = useContext(CartContext)
 
   const updateCartList = () => {
-    console.log(quantityVal)
+    // console.log(quantityVal)
     if (quantityVal > 0) {
-      addCartItem({...foodItemDetails, quantity: quantityVal})
+      addOrUpdateCartItem({...foodItemDetails, quantity: quantityVal})
     }
   }
 
@@ -28,7 +28,9 @@ const FoodItem = props => {
     setQuantityVal(state => state + 1)
   }
 
-  const onClickedDecrement = () => setQuantityVal(state => state - 1)
+  const onClickedDecrement = () => {
+    setQuantityVal(state => state - 1)
+  }
 
   const onClickedIncrement = () => setQuantityVal(state => state + 1)
 
@@ -45,13 +47,16 @@ const FoodItem = props => {
       </button>
     )
 
+  console.log(quantityVal, 'quantityVal in before return')
+
   return (
     <li className="food-list-item" testid="foodItem">
+      {console.log(quantityVal, 'quantityVal in return')}
       <img src={imageUrl} className="food-image" alt={name} />
       <div className="food-item-details">
         <h1 className="food-name">{name}</h1>
         <p className="cost">
-          <FaRupeeSign /> {cost}.00
+          <FaRupeeSign /> {cost}
         </p>
         <p className="rating">
           <FaStar className="food-star-icon" />

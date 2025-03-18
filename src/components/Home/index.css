@@ -6,8 +6,24 @@
 }
 .select-element {
   height: 50px;
-  width: 200px;
+  width: 120px;
   padding: 8px;
+  outline: none;
+  border: none;
+}
+.about-and-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 60px;
+}
+.selector-container {
+  border: 2px solid black;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 180px;
 }
 .page-selection-container {
   display: flex;

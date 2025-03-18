@@ -1,5 +1,5 @@
 .carousal-image {
-  height: 340px;
+  height: 380px;
   width: 95%;
   margin: 40px;
 }
@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .offer-list {
   list-style-type: none;

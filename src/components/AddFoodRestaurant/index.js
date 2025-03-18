@@ -19,7 +19,11 @@ const AddFoodRestaurant = props => {
   return (
     <>
       <div className="restaurant-full-details-card">
-        <img src={imageUrl} className="restaurant-full-image" alt="restaurant" />
+        <img
+          src={imageUrl}
+          className="restaurant-full-image"
+          alt="restaurant"
+        />
         <div className="restaurant-full-details">
           <h1>{name}</h1>
           <p className="special-cuisine">{cuisine}</p>

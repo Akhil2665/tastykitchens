@@ -4,7 +4,7 @@ import './index.css'
 
 const PaymentSuccessful = () => {
   console.log('PaymentSuccessful')
-  const history = useHistory()
+  // const history = useHistory()
   return (
     <div className="payment-successful-container">
       <img
@@ -14,11 +14,11 @@ const PaymentSuccessful = () => {
       />
       <h1 className="payment-successful-heading">Payment Successful</h1>
       <p className="payment-successful-about">
-        Thank you for ordering <br /> Your payment is successfully completed.{' '}
+        Thank you for ordering Your payment is successfully completed.
       </p>
       <Link to="/" className="link-item">
         <button className="home-page-btn" type="button">
-          Go To Home Page
+          Go To Home
         </button>
       </Link>
     </div>

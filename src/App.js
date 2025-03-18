@@ -40,6 +40,25 @@ class App extends Component {
     }
   }
 
+  addOrUpdateCartItem = product => {
+    const {cartList} = this.state
+    console.log('item added to cart')
+
+    const existingProduct = cartList.find(
+      eachItem => eachItem.id === product.id,
+    )
+    if (existingProduct) {
+      const updateQuantityCartList = cartList.map(eachItem =>
+        eachItem.id === product.id
+          ? {...eachItem, quantity: product.quantity}
+          : eachItem,
+      )
+      this.setState({cartList: updateQuantityCartList})
+    } else {
+      this.setState(prevState => ({cartList: [...prevState.cartList, product]}))
+    }
+  }
+
   removeCartItem = id => {
     const {cartList} = this.state
     const updatedList = cartList.filter(eachItem => eachItem.id !== id)
@@ -55,7 +74,7 @@ class App extends Component {
     const {cartList} = this.state
 
     const updatedList = cartList.map(eachItem =>
-      eachItem.id === id && eachItem.quantity > 1
+      eachItem.id === id && eachItem.quantity >= 1
         ? {...eachItem, quantity: eachItem.quantity - 1}
         : eachItem,
     )
@@ -101,6 +120,7 @@ class App extends Component {
           removeAllCartItems: this.removeAllCartItems,
           incrementCartItemQuantity: this.incrementCartItemQuantity,
           decrementCartItemQuantity: this.decrementCartItemQuantity,
+          addOrUpdateCartItem: this.addOrUpdateCartItem,
         }}
       >
         <Header />

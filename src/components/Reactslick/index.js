@@ -10,7 +10,12 @@ const Reactslick = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
+    swipeToSlide: true,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+    lazyLoad: true,
   }
   const [carousalImagesList, setCarousalImagesList] = useState([])
 
@@ -42,19 +47,17 @@ const Reactslick = () => {
   }, [])
   return (
     <>
-      <ul className="offer-list">
-        <Slider {...settings}>
-          {carousalImagesList.map(eachData => (
-            <li className="carousal-image-container" key={eachData.id}>
-              <img
-                src={eachData.imageUrl}
-                alt="offer"
-                className="carousal-image"
-              />
-            </li>
-          ))}
-        </Slider>
-      </ul>
+      <Slider {...settings}>
+        {carousalImagesList.map(eachData => (
+          <div className="carousal-image-container" key={eachData.id}>
+            <img
+              src={eachData.imageUrl}
+              alt="offer"
+              className="carousal-image"
+            />
+          </div>
+        ))}
+      </Slider>
     </>
   )
 }

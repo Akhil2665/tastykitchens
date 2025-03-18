@@ -2,9 +2,16 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 50%;
+  align-items: center;
+  width: 65%;
 }
 .count-value {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+@media (min-width: 768px) {
+  .counter {
+    width: 40%;
+  }
 }
