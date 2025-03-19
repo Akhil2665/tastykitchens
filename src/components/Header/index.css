@@ -1,14 +1,55 @@
-.header {
+.mobile-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+  width: 98%;
+}
+
+.mobile-popup-header-container {
   background-color: #f8fafc;
   height: 10%;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 4px;
+  padding-right: 4px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
   width: 100%;
 }
+.trigger-button {
+  background-color: white;
+  color: transparent;
+}
+.menu-icon {
+  font-size: 24px;
+  color: black;
+  /* background-color: green; */
+}
+@media (min-width: 768px) {
+  .mobile-navbar {
+    display: none;
+  }
+}
+.header {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .header {
+    background-color: #f8fafc;
+    height: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}
+
 .nav-list {
   display: flex;
   flex-direction: row;
@@ -21,6 +62,10 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  width: 30%;
+  box-shadow: 1px 2px 3px 4px #ffffff;
+  background-color: #ffffff;
+  border-radius: 12px;
 }
 .logo-heading {
   font-family: 'DM Sans';
@@ -31,10 +76,16 @@
   letter-spacing: 0px;
 }
 .nav-container {
-  width: 60%;
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+}
+@media (min-width: 768px) {
+  .nav-container {
+    width: 50%;
+    justify-content: flex-end;
+  }
 }
 .nav-link {
   text-decoration: none;
@@ -52,10 +103,33 @@
   scale: 1.1;
 }
 .nav-item {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 500;
+  margin-right: 8px;
+}
+@media (min-width: 768px) {
+  .nav-item {
+    font-size: 24px;
+    font-weight: 500;
+    margin-right: 8px;
+  }
 }
 .nav-item:hover {
   scale: 1.2;
   transition: 0.2s;
+}
+.trigger-button {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Roboto';
+  color: white;
+  padding: 8px 15px 8px 15px;
+  margin: 8px;
+  /* background-color: #7c69e9; */
+  border: none;
+  border-radius: 4px;
+  outline: none;
+}
+.popup-container {
+  display: flex;
 }

@@ -2,15 +2,11 @@ import {useContext} from 'react'
 
 import CartItem from '../CartItem'
 import Footer from '../Footer'
+import Header from '../Header'
 import NoOrders from '../NoOrders'
 
 import CartContext from '../../context/CartContext'
 import './index.css'
-
-// const cartList = [
-//   {id: 1, name: 'name'},
-//   {id: 2, name: 'name 232'},
-// ]
 
 const Cart = props => {
   // const navigate = useHistory()
@@ -40,6 +36,7 @@ const Cart = props => {
 
         return (
           <>
+            <Header />
             {cartList.length > 0 ? (
               <div className="cart-container">
                 <div className="remove-all-button-container">

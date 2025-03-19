@@ -21,8 +21,19 @@
   background-color: #f9fbfe;
   border-radius: 8px;
   min-height: 500px;
-  width: 94%;
+  width: 95%;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .cart-container {
+    border-radius: 18px;
+    min-height: 500px;
+    padding: 60px;
+  }
 }
 
 .row-names {

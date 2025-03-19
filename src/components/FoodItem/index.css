@@ -22,6 +22,11 @@
 .food-star-icon {
   color: #ffcc00;
 }
+.cost {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .food-name {
   font-weight: 600;
   font-size: 20px;

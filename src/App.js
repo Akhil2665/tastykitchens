@@ -2,7 +2,6 @@ import {Component} from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
 
 import LoginForm from './components/LoginForm'
-import Header from './components/Header'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -40,24 +39,24 @@ class App extends Component {
     }
   }
 
-  addOrUpdateCartItem = product => {
-    const {cartList} = this.state
-    console.log('item added to cart')
+  // addOrUpdateCartItem = product => {
+  //   const {cartList} = this.state
+  //   console.log('item added to cart')
 
-    const existingProduct = cartList.find(
-      eachItem => eachItem.id === product.id,
-    )
-    if (existingProduct) {
-      const updateQuantityCartList = cartList.map(eachItem =>
-        eachItem.id === product.id
-          ? {...eachItem, quantity: product.quantity}
-          : eachItem,
-      )
-      this.setState({cartList: updateQuantityCartList})
-    } else {
-      this.setState(prevState => ({cartList: [...prevState.cartList, product]}))
-    }
-  }
+  //   const existingProduct = cartList.find(
+  //     eachItem => eachItem.id === product.id,
+  //   )
+  //   if (existingProduct) {
+  //     const updateQuantityCartList = cartList.map(eachItem =>
+  //       eachItem.id === product.id
+  //         ? {...eachItem, quantity: product.quantity}
+  //         : eachItem,
+  //     )
+  //     this.setState({cartList: updateQuantityCartList})
+  //   } else {
+  //     this.setState(prevState => ({cartList: [...prevState.cartList, product]}))
+  //   }
+  // }
 
   removeCartItem = id => {
     const {cartList} = this.state
@@ -123,7 +122,6 @@ class App extends Component {
           addOrUpdateCartItem: this.addOrUpdateCartItem,
         }}
       >
-        <Header />
         <Switch>
           <Route exact path="/login" component={LoginForm} />
           <ProtectedRoute exact path="/" component={Home} />

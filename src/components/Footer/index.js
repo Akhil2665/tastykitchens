@@ -17,7 +17,7 @@ const socialIconsList = [
 export default function Footer() {
   return (
     <div className="footer-container">
-      <div className="logo-container">
+      <div className="footer-logo-container">
         <img
           src="https://res.cloudinary.com/dak8sudez/image/upload/v1741585992/Frame_275_g27005.png"
           className="footer-logo"

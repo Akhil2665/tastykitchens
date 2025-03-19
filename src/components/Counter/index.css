@@ -1,6 +1,6 @@
 .counter {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: 65%;
@@ -12,6 +12,7 @@
 }
 @media (min-width: 768px) {
   .counter {
+    flex-direction: row;
     width: 40%;
   }
 }

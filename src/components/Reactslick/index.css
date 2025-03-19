@@ -1,7 +1,7 @@
 .carousal-image {
-  height: 380px;
+  height: 240px;
   width: 95%;
-  margin: 40px;
+  margin: 10px;
 }
 .carousal-image-container {
   display: flex;
@@ -12,4 +12,11 @@
 }
 .offer-list {
   list-style-type: none;
+}
+@media (min-width: 768px) {
+  .carousal-image {
+    height: 380px;
+    width: 95%;
+    margin: 40px;
+  }
 }

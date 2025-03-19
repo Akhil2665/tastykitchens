@@ -81,3 +81,33 @@
     width: 50%;
   }
 }
+.name-delete-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.delete-button {
+  background-color: transparent;
+  border: none;
+}
+.delete-icon {
+  font-size: 14px;
+  font-weight: 500;
+  color: #eb57b9;
+  cursor: pointer;
+}
+.delete-icon:hover {
+  scale: 1.1;
+}
+@media (min-width: 768px) {
+  .delete-icon {
+    font-size: 24px;
+    font-weight: 500;
+    color: #eb57b9;
+    cursor: pointer;
+  }
+  .name-delete-container {
+    flex-direction: column;
+  }
+}

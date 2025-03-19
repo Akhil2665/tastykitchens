@@ -11,28 +11,45 @@ const FoodItem = props => {
   const {foodItemDetails} = props
   const {id, name, rating, imageUrl, cost, quantity} = foodItemDetails
   const [quantityVal, setQuantityVal] = useState(0)
-  const {addOrUpdateCartItem} = useContext(CartContext)
 
-  const updateCartList = () => {
-    // console.log(quantityVal)
-    if (quantityVal > 0) {
-      addOrUpdateCartItem({...foodItemDetails, quantity: quantityVal})
-    }
-  }
+  const {
+    addCartItem,
+    decrementCartItemQuantity,
+    incrementCartItemQuantity,
+    removeCartItem,
+  } = useContext(CartContext)
 
-  useEffect(() => {
-    updateCartList()
-  }, [quantityVal])
+  // const updateCartList = () => {
+  //   const storedCartList = JSON.parse(localStorage.getItem('cartData'))
+  //   const existingProduct = storedCartList.find(
+  //     eachItem => eachItem.id === product.id,
+  //   )
+  //   if (existingProduct) {
+  //   }
+
+  //   addOrUpdateCartItem({...foodItemDetails, quantity: quantityVal})
+  // }
+
+  // useEffect(() => {
+  //   if (quantityVal > 0) {
+  //     updateCartList()
+  //   }
+  // }, [quantityVal])
 
   const onChangeQunatity = () => {
-    setQuantityVal(state => state + 1)
+    setQuantityVal(1)
+    addCartItem({...foodItemDetails, quantity: 1})
   }
 
   const onClickedDecrement = () => {
     setQuantityVal(state => state - 1)
+    decrementCartItemQuantity(id)
   }
 
-  const onClickedIncrement = () => setQuantityVal(state => state + 1)
+  const onClickedIncrement = () => {
+    setQuantityVal(state => state + 1)
+    incrementCartItemQuantity(id)
+  }
 
   const renderAddButton = () =>
     quantityVal > 0 ? (
@@ -56,7 +73,7 @@ const FoodItem = props => {
       <div className="food-item-details">
         <h1 className="food-name">{name}</h1>
         <p className="cost">
-          <FaRupeeSign /> {cost}
+          <FaRupeeSign /> {cost}.00
         </p>
         <p className="rating">
           <FaStar className="food-star-icon" />

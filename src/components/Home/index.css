@@ -4,12 +4,22 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+.home-page-container {
+  min-height: 100vh;
+  width: 100%;
+}
 .select-element {
   height: 50px;
   width: 120px;
   padding: 8px;
   outline: none;
   border: none;
+}
+.products-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 .about-and-filter {
   display: flex;
