@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 8px;
 }
 .home-page-container {
   min-height: 100vh;
@@ -14,6 +15,10 @@
   padding: 8px;
   outline: none;
   border: none;
+  cursor: pointer;
+}
+.option-element {
+  font-size: 24px;
 }
 .products-loader-container {
   display: flex;
@@ -21,12 +26,7 @@
   align-items: center;
   height: 100vh;
 }
-.about-and-filter {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 60px;
-}
+
 .selector-container {
   border: 2px solid black;
   border-radius: 8px;
@@ -41,11 +41,39 @@
   justify-content: center;
   align-items: center;
   align-self: center;
-  width: 20%;
+  width: 100%;
   margin: auto;
+}
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+}
+.about-and-filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 30px;
+}
+@media (min-width: 768px) {
+  .page-selection-container {
+    width: 40%;
+  }
+  .about-and-filter {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+  }
 }
 .page-number {
   padding: 30px;
   font-size: 22px;
   font-weight: 500;
+}
+.restaurants-about {
+  font-size: 20px;
+}
+.restaurants-heading {
+  height: 36px;
+  font-size: 32px;
+  padding-left: 30px;
 }

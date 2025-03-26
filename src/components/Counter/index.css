@@ -1,18 +1,23 @@
 .counter {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 65%;
+  width: 85%;
 }
+@media (min-width: 768px) {
+  .counter {
+    flex-direction: row;
+    align-items: center;
+    width: 40%;
+  }
+}
+
 .count-value {
   margin: 10px;
   font-size: 18px;
   font-weight: 600;
 }
-@media (min-width: 768px) {
-  .counter {
-    flex-direction: row;
-    width: 40%;
-  }
+.cart-quantity-btn {
+  background-color: transparent;
 }

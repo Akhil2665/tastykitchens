@@ -20,6 +20,7 @@ const Counter = props => (
             type="button"
             onClick={onDecrement}
             testid="decrement-quantity"
+            className="cart-quantity-btn"
           >
             -
           </button>

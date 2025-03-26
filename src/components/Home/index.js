@@ -35,6 +35,8 @@ class Home extends Component {
   // const [restaurant, setRestaurant] = useState({})
   state = {
     restaurantList: [],
+    carousalImagesList: [],
+    carousalApiStatus: apiStatusConstants.initial,
     sortByOption: 'Lowest',
     pageNumber: 1,
     apiStatus: apiStatusConstants.initial,
@@ -43,7 +45,65 @@ class Home extends Component {
   // console.log(jwtTokwn)
 
   componentDidMount() {
+    this.getCarousalImages()
     this.getRestaurantList()
+  }
+
+  getCarousalImages = async () => {
+    this.setState({
+      carousalApiStatus: apiStatusConstants.inProgress,
+    })
+
+    const jwtToken = Cookies.get('jwt_token')
+    const apiUrl = 'https://apis.ccbp.in/restaurants-list/offers'
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: `bearer ${jwtToken}`,
+      },
+    }
+
+    const response = await fetch(apiUrl, options)
+    const data = await response.json()
+
+    if (response.ok) {
+      const updatedData = data.offers.map(eachImageData => ({
+        id: eachImageData.id,
+        imageUrl: eachImageData.image_url,
+      }))
+      this.setState({
+        carousalImagesList: updatedData,
+        carousalApiStatus: apiStatusConstants.success,
+      })
+    } else {
+      console.log('failed error')
+      this.setState({
+        carousalApiStatus: apiStatusConstants.failure,
+      })
+    }
+  }
+
+  renderSliderView = () => {
+    const {carousalApiStatus, carousalImagesList} = this.state
+    switch (carousalApiStatus) {
+      case apiStatusConstants.inProgress:
+        return (
+          <div
+            className="home-slider-container"
+            testid="restaurants-offers-loader"
+          >
+            <Loader type="ThreeDots" color="#F7931E" height="50" width="50" />
+          </div>
+        )
+      case apiStatusConstants.success:
+        return (
+          <div className="home-page-slider-container">
+            <Reactslick carousalImagesList={carousalImagesList} />
+          </div>
+        )
+      default:
+        return null
+    }
   }
 
   getRestaurantList = async () => {
@@ -113,34 +173,37 @@ class Home extends Component {
   }
 
   onIncrementPageValue = () => {
-    this.setState(
-      prevState => ({pageNumber: prevState.pageNumber + 1}),
-      this.getRestaurantList,
-    )
+    const {pageNumber} = this.state
+    if (pageNumber < 4) {
+      this.setState(
+        prevState => ({pageNumber: prevState.pageNumber + 1}),
+        this.getRestaurantList,
+      )
+    }
   }
 
-  renderFailureView = () => (
-    <div className="products-error-view-container">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
-        alt="all-products-error"
-        className="products-failure-img"
-      />
-      <h1 className="product-failure-heading-text">
-        Oops! Something Went Wrong
-      </h1>
-      <p className="products-failure-description">
-        We are having some trouble processing your request. Please try again.
-      </p>
-    </div>
-  )
+  // renderFailureView = () => (
+  //   <div className="products-error-view-container">
+  //     <img
+  //       src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+  //       alt="all-products-error"
+  //       className="products-failure-img"
+  //     />
+  //     <h1 className="product-failure-heading-text">
+  //       Oops! Something Went Wrong
+  //     </h1>
+  //     <p className="products-failure-description">
+  //       We are having some trouble processing your request. Please try again.
+  //     </p>
+  //   </div>
+  // )
 
   renderResult = apiStatus => {
     switch (apiStatus) {
       case apiStatusConstants.success:
         return this.renderProductsListView()
       case apiStatusConstants.failure:
-        return this.renderFailureView()
+        return null
       case apiStatusConstants.inProgress:
         return this.renderLoadingView()
       default:
@@ -156,11 +219,12 @@ class Home extends Component {
 
   renderProductsListView = () => {
     const {restaurantList, sortByOption, pageNumber} = this.state
+    const totalPages = 4
     return (
       <>
         <Header />
         <div className="app-container">
-          <Reactslick />
+          {this.renderSliderView()}
           <div className="filter-bar">
             <h1 className="restaurants-heading">Popular Restaurants</h1>
             <div className="about-and-filter">
@@ -176,7 +240,11 @@ class Home extends Component {
                   value={sortByOption}
                 >
                   {sortByOptions.map(eachOption => (
-                    <option value={eachOption.value} key={eachOption.id}>
+                    <option
+                      className="option-element"
+                      value={eachOption.value}
+                      key={eachOption.id}
+                    >
                       {eachOption.displayText}
                     </option>
                   ))}
@@ -198,20 +266,18 @@ class Home extends Component {
               onClick={this.onDecrementPageValue}
               testid="pagination-left-button"
             >
-              {' '}
-              <FaAngleLeft />{' '}
+              -
             </button>
             <span className="page-number" testid="active-page-number">
               {pageNumber}
             </span>
-
+            of {totalPages}
             <button
               type="button"
               onClick={this.onIncrementPageValue}
               testid="pagination-right-button"
             >
-              {' '}
-              <FaAngleRight />
+              +
             </button>
           </div>
           <Footer />

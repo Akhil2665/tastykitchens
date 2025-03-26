@@ -1,88 +1,136 @@
-import {useContext, useState, useEffect} from 'react'
+import {Component} from 'react'
 
 import {FaStar, FaRupeeSign} from 'react-icons/fa'
 
-import FoodItemCounter from '../FoodItemCounter'
-import CartContext from '../../context/CartContext'
+// import FoodItemCounter from '../FoodItemCounter'
+// import CartContext from '../../context/CartContext'
 
 import './index.css'
 
-const FoodItem = props => {
-  const {foodItemDetails} = props
-  const {id, name, rating, imageUrl, cost, quantity} = foodItemDetails
-  const [quantityVal, setQuantityVal] = useState(0)
-
-  const {
-    addCartItem,
-    decrementCartItemQuantity,
-    incrementCartItemQuantity,
-    removeCartItem,
-  } = useContext(CartContext)
-
-  // const updateCartList = () => {
-  //   const storedCartList = JSON.parse(localStorage.getItem('cartData'))
-  //   const existingProduct = storedCartList.find(
-  //     eachItem => eachItem.id === product.id,
-  //   )
-  //   if (existingProduct) {
-  //   }
-
-  //   addOrUpdateCartItem({...foodItemDetails, quantity: quantityVal})
-  // }
-
-  // useEffect(() => {
-  //   if (quantityVal > 0) {
-  //     updateCartList()
-  //   }
-  // }, [quantityVal])
-
-  const onChangeQunatity = () => {
-    setQuantityVal(1)
-    addCartItem({...foodItemDetails, quantity: 1})
+class FoodItem extends Component {
+  state = {
+    quantityVal: 0,
   }
 
-  const onClickedDecrement = () => {
-    setQuantityVal(state => state - 1)
-    decrementCartItemQuantity(id)
+  updateLocalStorage = () => {
+    const {cartList} = this.state
+    localStorage.setItem('cartData', JSON.stringify(cartList))
   }
 
-  const onClickedIncrement = () => {
-    setQuantityVal(state => state + 1)
-    incrementCartItemQuantity(id)
+  addCartItem = product => {
+    const cartList = JSON.parse(localStorage.getItem('cartData')) || []
+
+    const existingProduct = cartList?.find(
+      eachItem => eachItem.id === product.id,
+    )
+    if (existingProduct) {
+      const updateQuantityCartList = cartList?.map(eachItem =>
+        eachItem.id === product.id
+          ? {...eachItem, quantity: eachItem.quantity + product.quantity}
+          : eachItem,
+      )
+      localStorage.setItem('cartData', JSON.stringify(updateQuantityCartList))
+    } else {
+      const updatedCartList = [...cartList, product] || [{...product}]
+      localStorage.setItem('cartData', JSON.stringify(updatedCartList))
+    }
   }
 
-  const renderAddButton = () =>
-    quantityVal > 0 ? (
-      <FoodItemCounter
-        onClickedDecrement={onClickedDecrement}
-        onClickedIncrement={onClickedIncrement}
-        quantity={quantityVal}
-      />
+  decrementCartItemQuantity = id => {
+    const cartList = JSON.parse(localStorage.getItem('cartData')) || []
+
+    const updatedList = cartList?.map(eachItem =>
+      eachItem.id === id && eachItem.quantity >= 1
+        ? {...eachItem, quantity: eachItem.quantity - 1}
+        : eachItem,
+    )
+    const filterdList = updatedList?.filter(eachItem => eachItem.quantity !== 0)
+
+    localStorage.setItem('cartData', JSON.stringify(filterdList))
+  }
+
+  incrementCartItemQuantity = id => {
+    // console.log('increment quant')
+    const cartList = JSON.parse(localStorage.getItem('cartData')) || []
+
+    const updatedList = cartList?.map(eachItem =>
+      eachItem.id === id
+        ? {...eachItem, quantity: eachItem.quantity + 1}
+        : eachItem,
+    )
+
+    localStorage.setItem('cartData', JSON.stringify(updatedList))
+  }
+
+  onChangeQunatity = () => {
+    const {foodItemDetails} = this.props
+    this.setState({quantityVal: 1})
+    this.addCartItem({...foodItemDetails, quantity: 1})
+  }
+
+  onClickedDecrement = () => {
+    const {foodItemDetails} = this.props
+    const {id} = foodItemDetails
+    this.setState(prevState => ({quantityVal: prevState.quantityVal - 1}))
+    this.decrementCartItemQuantity(id)
+  }
+
+  onClickedIncrement = () => {
+    const {foodItemDetails} = this.props
+    const {id} = foodItemDetails
+    this.setState(prevState => ({quantityVal: prevState.quantityVal + 1}))
+    this.incrementCartItemQuantity(id)
+  }
+
+  renderAddButton = () => {
+    const {quantityVal} = this.state
+    return quantityVal > 0 ? (
+      <div className="counter">
+        <button
+          type="button"
+          onClick={this.onClickedDecrement}
+          testid="decrement-count"
+        >
+          -
+        </button>
+        <p className="count-value" testid="active-count">
+          {quantityVal}
+        </p>
+        <button
+          type="button"
+          onClick={this.onClickedIncrement}
+          testid="increment-count"
+        >
+          +
+        </button>
+      </div>
     ) : (
-      <button className="add-btn" type="button" onClick={onChangeQunatity}>
+      <button className="add-btn" type="button" onClick={this.onChangeQunatity}>
         Add
       </button>
     )
+  }
 
-  console.log(quantityVal, 'quantityVal in before return')
-
-  return (
-    <li className="food-list-item" testid="foodItem">
-      {console.log(quantityVal, 'quantityVal in return')}
-      <img src={imageUrl} className="food-image" alt={name} />
-      <div className="food-item-details">
-        <h1 className="food-name">{name}</h1>
-        <p className="cost">
-          <FaRupeeSign /> {cost}.00
-        </p>
-        <p className="rating">
-          <FaStar className="food-star-icon" />
-          {rating}
-        </p>
-        {renderAddButton()}
-      </div>
-    </li>
-  )
+  render() {
+    const {foodItemDetails} = this.props
+    const {id, imageUrl, name, cost, rating} = foodItemDetails
+    return (
+      <li className="food-list-item" testid="foodItem">
+        <img src={imageUrl} className="food-image" alt={name} />
+        <div className="food-item-details">
+          <h1 className="food-name">{name}</h1>
+          <p className="cost">
+            <FaRupeeSign /> {cost}
+          </p>
+          <p className="rating">
+            <FaStar className="food-star-icon" />
+            {rating}
+          </p>
+          {this.renderAddButton()}
+        </div>
+      </li>
+    )
+  }
 }
 
 export default FoodItem

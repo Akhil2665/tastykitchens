@@ -25,7 +25,7 @@ const AddFoodRestaurant = props => {
           alt="restaurant"
         />
         <div className="restaurant-full-details">
-          <h1>{name}</h1>
+          <h1 className="restro-name">{name}</h1>
           <p className="special-cuisine">{cuisine}</p>
           <p className="location">{location}</p>
           <div className="rating-and-price">
@@ -38,8 +38,9 @@ const AddFoodRestaurant = props => {
             </div>
             <p className="starting-price">
               <FaRupeeSign />
-              {costForTwo} <span className="cost-for-two">Cost for two</span>
+              {costForTwo}
             </p>
+            <p className="cost-for-two">Cost for two</p>
           </div>
         </div>
       </div>

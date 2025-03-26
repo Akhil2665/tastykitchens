@@ -1,6 +1,6 @@
-import {useHistory, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-import Header from '../Header'
+// import Header from '../Header'
 
 import './index.css'
 
@@ -9,7 +9,6 @@ const PaymentSuccessful = () => {
   // const history = useHistory()
   return (
     <>
-      <Header />
       <div className="payment-successful-container">
         <img
           src="https://res.cloudinary.com/dak8sudez/image/upload/v1741601734/Vector_zhuanw.png"

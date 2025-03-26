@@ -1,8 +1,18 @@
 .login-page-container {
   display: flex;
-  flex-direction: row;
-  height: 100vh;
-  padding: 30px;
+  flex-direction: column;
+
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  .login-page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 30px;
+  }
 }
 
 .login-heading {
@@ -11,20 +21,66 @@
   font-size: 32px;
 }
 .login-image {
-  height: 100%;
-  width: 40%;
-  border-radius: 8px;
+  height: 700px;
+  width: 120%;
+  margin-right: -120px;
+  margin-top: -240px;
+  border-radius: 50%;
 }
+
 .login-card {
-  min-height: 460px;
-  width: 440px;
   display: flex;
   flex-direction: column;
-  box-shadow: 1px 2px 3px 4px #e2e8f0;
-  margin: 60px;
+  order: 1;
+  padding-left: 28px;
+  height: 50%;
+  width: 100%;
+}
 
-  padding: 30px;
-  border-radius: 8px;
+.login-image-container {
+  order: 0;
+  width: 50%;
+  margin-right: -60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.login-card-container {
+  font-family: 'Roboto';
+}
+@media (min-width: 768px) {
+  .login-card-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+  }
+  .login-image-container {
+    order: 0;
+    width: 35%;
+    justify-content: center;
+    margin: 0px;
+  }
+
+  .login-image {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    margin: 0px;
+  }
+  .login-card {
+    min-height: 460px;
+    width: 440px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 2px 3px 4px #e2e8f0;
+    margin: 60px;
+    order: 0;
+    padding: 30px;
+    border-radius: 8px;
+  }
 }
 .login-form-container {
   display: flex;
@@ -50,6 +106,10 @@
   padding-left: 8px;
   border-radius: 6px;
 }
+@media (min-width: 768px) {
+  .input {
+  }
+}
 .login-button {
   width: 312px;
   height: 40px;
@@ -69,11 +129,16 @@
   width: 50px;
 }
 
-.logo-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.login-page-logo-container {
+  display: none;
+}
+@media (min-width: 768px) {
+  .login-page-logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .logo-heading {
   font-family: 'DM Sans';

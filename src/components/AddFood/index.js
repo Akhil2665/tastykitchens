@@ -18,14 +18,15 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
+const cartData = JSON.parse(localStorage.getItem('cartData')) || []
+
 class AddFood extends Component {
   state = {
     foodItemsList: [],
     restaurantData: {},
+    cartList: cartData,
     apiStatus: apiStatusConstants.initial,
   }
-  // const [foodItemsList, setFoodItemsList] = useState()
-  // const [restaurantData, setRestaurantData] = useState()
 
   componentDidMount() {
     this.getFoodItems()
@@ -123,7 +124,6 @@ class AddFood extends Component {
 
   renderProductsListView = () => {
     const {foodItemsList, restaurantData} = this.state
-
     return (
       <>
         <Header />

@@ -15,6 +15,8 @@
   text-align: center;
   height: 25%;
   color: white;
+  padding-top: 10px;
+  padding-bottom: 0px;
 }
 .footer-logo-container {
   display: flex;
@@ -23,12 +25,20 @@
   align-items: center;
 }
 .social-buttons-container {
-  list-style-type: none;
-  width: 25%;
+  width: 60%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+@media (min-width: 768px) {
+  .social-buttons-container {
+    width: 16%;
+  }
+  .footer-container {
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
 }
 .social-icon {
   font-size: 36px;

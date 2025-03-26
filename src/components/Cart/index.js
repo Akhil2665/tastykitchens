@@ -1,89 +1,213 @@
-import {useContext} from 'react'
+/* eslint-disable react/no-unknown-property */
+import React, {Component, useContext} from 'react'
+import {Link} from 'react-router-dom'
 
-import CartItem from '../CartItem'
-import Footer from '../Footer'
+import {BiRupee} from 'react-icons/bi'
 import Header from '../Header'
+import Footer from '../Footer'
+import CartItem from '../CartItem'
+import PaymentSuccessful from '../PaymentSuccessful'
 import NoOrders from '../NoOrders'
 
-import CartContext from '../../context/CartContext'
 import './index.css'
 
-const Cart = props => {
-  // const navigate = useHistory()
-  // const cartList = localStorage.getItem('cart_list')
-  const {history} = props
-  console.log('cart loogedd')
+const cartStatusConstants = {
+  initial: 'INITIAL',
+  cartItemsFound: 'SUCCESS',
+  noCartItems: 'FAILURE',
+  paymentSuccess: 'PAYMENT',
+}
 
-  // const newcartList = JSON.parse(localStorage.getItem('cart_list'))
-  // console.log(newcartList, 'new')
-  return (
-    <CartContext.Consumer>
-      {value => {
-        const {cartList, removeAllCartItems} = value
-        // console.log(cartList, 'cartList')
-        let totalCartAmount = 0
-        if (cartList.length > 0) {
-          const cartValueList = cartList.map(
-            eachItem => eachItem.cost * eachItem.quantity,
-          )
-          totalCartAmount = cartValueList.reduce((acc, curr) => acc + curr, 0)
-        }
-        const onClickedRemoveAll = () => removeAllCartItems()
-        const onClickedPlaceOrder = () => {
-          removeAllCartItems()
-          history.push('/payment-successful')
-        }
+// const initialCartData =
 
-        return (
-          <>
-            <Header />
-            {cartList.length > 0 ? (
-              <div className="cart-container">
-                <div className="remove-all-button-container">
-                  <button
-                    type="button"
-                    onClick={onClickedRemoveAll}
-                    className="remove-all-button"
-                  >
-                    Remove all
-                  </button>
-                </div>
-                <div className="row-names">
-                  <h1 className="row-name">Item</h1>
-                  <h1 className="row-name">Quantity</h1>
-                  <h1 className="row-name-price">Price</h1>
-                </div>
-                <ul className="cart-list">
-                  {cartList.map(eachObj => (
-                    <CartItem cartItemDetails={eachObj} key={eachObj.id} />
-                  ))}
-                </ul>
+class Cart extends Component {
+  state = {
+    cartData: JSON.parse(localStorage.getItem('cartData')) || [],
+    cartStatus: cartStatusConstants.initial,
+  }
 
-                <div className="cart-value-container">
-                  <h1 className="cart-value-heading">Order Total:</h1>
-                  <div className="total-amount-order-now">
-                    <p className="total-price" testid="total-price">
-                      {totalCartAmount}
-                    </p>
-                    <button
-                      className="order-now-btn"
-                      type="button"
-                      onClick={onClickedPlaceOrder}
-                    >
-                      Place Order
-                    </button>
-                  </div>
-                </div>
+  componentDidMount() {
+    this.getTheCartData()
+  }
+
+  getDataFromLocalStorage = () => JSON.parse(localStorage.getItem('cartData'))
+
+  storeCartDataToLocalStorage = changeInData => {
+    localStorage.setItem('cartData', JSON.stringify(changeInData))
+  }
+
+  getTheCartData = () => {
+    const cartData = this.getDataFromLocalStorage() || []
+    if (cartData.length === 0) {
+      this.setState({cartStatus: cartStatusConstants.noCartItems})
+    } else {
+      this.setState({
+        cartData,
+        cartStatus: cartStatusConstants.cartItemsFound,
+      })
+    }
+  }
+
+  incrementQuantityWithId = uniqueId => {
+    const cartData = this.getDataFromLocalStorage()
+    const changeInData = cartData.map(eachItem => {
+      if (eachItem.id === uniqueId) {
+        const quantity = eachItem.quantity + 1
+        return {...eachItem, quantity}
+      }
+      return eachItem
+    })
+    this.storeCartDataToLocalStorage(changeInData)
+    this.getTheCartData()
+  }
+
+  decrementQuantityWithId = uniqueId => {
+    const cartData = this.getDataFromLocalStorage()
+    const changeInData = cartData.map(eachItem => {
+      if (eachItem.id === uniqueId) {
+        const quantity = eachItem.quantity - 1
+        return {...eachItem, quantity}
+      }
+      return eachItem
+    })
+    this.storeCartDataToLocalStorage(changeInData)
+    this.removeUnNecessaryData()
+    this.getTheCartData()
+  }
+
+  removeUnNecessaryData = () => {
+    const cartData = this.getDataFromLocalStorage() || []
+    const filtering = cartData.filter(eachItem => eachItem.quantity >= 1)
+    const newCartData = [...filtering]
+    this.storeCartDataToLocalStorage(newCartData)
+    this.getTheCartData()
+  }
+
+  calculateTheTotalAmount = () => {
+    const cartData = this.getDataFromLocalStorage() || []
+    if (cartData.length > 0) {
+      const cartValue = cartData.map(each => each.quantity * each.cost)
+      const reduceValue = cartValue.reduce((a, b) => a + b)
+      return reduceValue
+    }
+    return 0
+  }
+
+  goToHomePage = () => {
+    const {history} = this.props
+    history.replace('/')
+  }
+
+  placeOrder = () => {
+    this.setState({cartStatus: cartStatusConstants.paymentSuccess})
+    localStorage.clear('cartData')
+  }
+
+  cartEmptyView = () => {
+    const {cartData} = this.state
+    console.log('cartDataCart', cartData)
+    return <NoOrders />
+  }
+
+  removeCartItem = id => {
+    const {cartData} = this.state
+    const updatedList = cartData.filter(eachItem => eachItem.id !== id)
+    this.setState({cartData: updatedList}, this.getTheCartData)
+    localStorage.setItem('cartData', JSON.stringify(cartData) || [])
+  }
+
+  paymentSuccessfulView = () => <PaymentSuccessful />
+
+  onClickedRemoveAll = () => {
+    localStorage.removeItem('cartData')
+    this.setState({cartData: []}, this.getTheCartData)
+  }
+
+  cartItemsView = () => {
+    const {cartData} = this.state
+    console.log('cartDataCart', cartData)
+    const totalValue = this.calculateTheTotalAmount()
+    return (
+      <>
+        <div className="cart-container">
+          <div className="cart-container-to-hold-all-item">
+            <div className="remove-all-button-container">
+              <button
+                type="button"
+                onClick={this.onClickedRemoveAll}
+                className="remove-all-button"
+              >
+                Remove all
+              </button>
+            </div>
+            <div className="row-names">
+              <h1 className="row-name-item">Item</h1>
+              <div className="cart-qunatity-price-container">
+                <h1 className="row-name">Quantity</h1>
+                <h1 className="row-name-price">Price</h1>
               </div>
-            ) : (
-              <NoOrders />
-            )}
-            <Footer />
-          </>
-        )
-      }}
-    </CartContext.Consumer>
-  )
+            </div>
+            <ul className="cart-route-cart-item-un-order-container">
+              {cartData.map(eachItem => (
+                <CartItem
+                  key={eachItem.id}
+                  cartItemDetails={eachItem}
+                  incrementQuantityWithId={this.incrementQuantityWithId}
+                  decrementQuantityWithId={this.decrementQuantityWithId}
+                  removeCartItem={this.removeCartItem}
+                />
+              ))}
+            </ul>
+            <hr className="cart-route-horizontal-line" />
+            <div className="cart-value-container">
+              <h1 className="cart-route-total-order-value-heading">
+                Order Total:
+              </h1>
+              <div className="cart-route-total-order-value-rupees">
+                <BiRupee className="total-price" />
+                <p testid="total-price" className="total-price">
+                  {totalValue}.00
+                </p>
+              </div>
+            </div>
+            <div className="order-now-btn-container">
+              <button
+                className="order-now-btn"
+                type="button"
+                onClick={this.placeOrder}
+              >
+                Place Order
+              </button>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </>
+    )
+  }
+
+  onRenderDisplayCartPage = cartStatus => {
+    switch (cartStatus) {
+      case cartStatusConstants.cartItemsFound:
+        return this.cartItemsView()
+      case cartStatusConstants.noCartItems:
+        return this.cartEmptyView()
+      case cartStatusConstants.paymentSuccess:
+        return this.paymentSuccessfulView()
+      default:
+        return null
+    }
+  }
+
+  render() {
+    const {cartStatus} = this.state
+    return (
+      <>
+        <Header />
+        <div>{this.onRenderDisplayCartPage(cartStatus)}</div>
+      </>
+    )
+  }
 }
 
 export default Cart

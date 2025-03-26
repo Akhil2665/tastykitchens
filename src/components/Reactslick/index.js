@@ -1,10 +1,9 @@
-import {useState, useEffect} from 'react'
-import Cookies from 'js-cookie'
 import Slider from 'react-slick'
 
 import './index.css'
 
-const Reactslick = () => {
+const Reactslick = props => {
+  const {carousalImagesList} = props
   const settings = {
     dots: true,
     infinite: true,
@@ -17,34 +16,8 @@ const Reactslick = () => {
     pauseOnHover: true,
     lazyLoad: true,
   }
-  const [carousalImagesList, setCarousalImagesList] = useState([])
+  console.log(carousalImagesList, 'carousalImagesList')
 
-  const getCarousalImages = async () => {
-    const jwtToken = Cookies.get('jwt_token')
-    const apiUrl = 'https://apis.ccbp.in/restaurants-list/offers'
-    const options = {
-      method: 'GET',
-      headers: {
-        Authorization: `bearer ${jwtToken}`,
-      },
-    }
-    const response = await fetch(apiUrl, options)
-    const data = await response.json()
-
-    if (response.ok) {
-      const updatedData = data.offers.map(eachImageData => ({
-        id: eachImageData.id,
-        imageUrl: eachImageData.image_url,
-      }))
-      setCarousalImagesList(updatedData)
-    } else {
-      console.log('failed error')
-    }
-  }
-
-  useEffect(() => {
-    getCarousalImages()
-  }, [])
   return (
     <>
       <Slider {...settings}>

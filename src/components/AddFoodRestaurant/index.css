@@ -2,31 +2,48 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: #333333;
-  height: 200px;
+  background-image: url('https://res.cloudinary.com/dqmmxqwiq/image/upload/v1680364676/Tasty%20Kitchen%20React%20mini%20Project/Frame_279_gvkieb.png');
+  background-size: cover;
+  height: 280px;
   width: 96%;
   border-radius: 12px;
   color: white;
   margin: 20px;
-  padding: 40px;
+  padding: 10px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: normal;
 }
 .restaurant-full-image {
-  height: 100px;
-  width: 200px;
-  border-radius: 50%;
+  height: 240px;
+  width: 240px;
+  border-bottom-right-radius: 50%;
+  margin-left: -100px;
+  margin-right: 10px;
 }
 .restaurant-rating-container {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
+.restro-name {
+  font-size: 16px;
+}
+.rating-and-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 60%;
+}
 @media (min-width: 768px) {
   .restaurant-full-image {
     height: 320px;
     width: 600px;
     border-radius: 12px;
     margin-right: 20px;
+  }
+  .restro-name {
+    font-size: 24px;
   }
   .restaurant-full-details-card {
     display: flex;

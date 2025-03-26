@@ -7,13 +7,6 @@ import {
 
 import './index.css'
 
-const socialIconsList = [
-  {id: 0, iconName: FaPinterestSquare, testId: 'pintrest-social-icon'},
-  {id: 1, iconName: FaInstagram, testId: 'instagram-social-icon'},
-  {id: 2, iconName: FaTwitter, testId: 'twitter-social-icon'},
-  {id: 3, iconName: FaFacebookSquare, testId: 'facebook-social-icon'},
-]
-
 export default function Footer() {
   return (
     <div className="footer-container">
@@ -28,13 +21,28 @@ export default function Footer() {
       <p className="footer-about">
         The only thing we are serious about is food. <br /> Contact us on
       </p>
-      <ul className="social-buttons-container">
-        {socialIconsList.map(eachObj => (
-          <li className="social-icon-list" key={eachObj.id}>
-            <eachObj.iconName className="social-icon" testid={eachObj.testId} />{' '}
-          </li>
-        ))}
-      </ul>
+      <div className="social-buttons-container">
+        <FaInstagram
+          testid="instagram-social-icon"
+          size={20}
+          className="social-icon"
+        />
+        <FaPinterestSquare
+          testid="pintrest-social-icon"
+          size={20}
+          className="social-icon"
+        />
+        <FaTwitter
+          testid="twitter-social-icon"
+          size={20}
+          className="social-icon"
+        />
+        <FaFacebookSquare
+          testid="facebook-social-icon"
+          size={20}
+          className="social-icon"
+        />
+      </div>
     </div>
   )
 }

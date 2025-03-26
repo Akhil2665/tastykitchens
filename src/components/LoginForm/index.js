@@ -59,54 +59,58 @@ const LoginForm = props => {
 
   return (
     <div className="login-page-container">
-      <div className="login-card">
-        <div className="logo-container">
-          <img
-            src="https://res.cloudinary.com/dak8sudez/image/upload/v1741532996/Frame_274_r9hgm0.jpg"
-            alt="website logo"
-            className="form-logo"
-          />
-          <h1 className="logo-heading">Tasty Kitchens</h1>
+      <div className="login-card-container">
+        <div className="login-card">
+          <div className="login-page-logo-container">
+            <img
+              src="https://res.cloudinary.com/dak8sudez/image/upload/v1741532996/Frame_274_r9hgm0.jpg"
+              alt="website logo"
+              className="form-logo"
+            />
+            <h1 className="logo-heading">Tasty Kitchens</h1>
+          </div>
+          <h1 className="login-heading">Login</h1>
+          <form className="login-form-container" onSubmit={onSubmitUserData}>
+            <div className="input-container">
+              <label htmlFor="username" className="label">
+                USERNAME
+              </label>
+              <input
+                className="input"
+                type="text"
+                id="username"
+                onChange={onChangeUsername}
+                value={username}
+                placeholder=""
+              />
+            </div>
+            <div className="input-container">
+              <label htmlFor="password" className="label">
+                PASSWORD
+              </label>
+              <input
+                className="input"
+                type="password"
+                id="password"
+                onChange={onChangePassword}
+                value={password}
+                placeholder=""
+              />
+              {showSubmitError && <p className="err-msg">*{errorMsg}</p>}
+            </div>
+            <button className="login-button" type="submit" data-testid="login">
+              Login
+            </button>
+          </form>
         </div>
-        <h1 className="login-heading">Login</h1>
-        <form className="login-form-container" onSubmit={onSubmitUserData}>
-          <div className="input-container">
-            <label htmlFor="username" className="label">
-              USERNAME
-            </label>
-            <input
-              className="input"
-              type="text"
-              id="username"
-              onChange={onChangeUsername}
-              value={username}
-              placeholder=""
-            />
-          </div>
-          <div className="input-container">
-            <label htmlFor="password" className="label">
-              PASSWORD
-            </label>
-            <input
-              className="input"
-              type="password"
-              id="password"
-              onChange={onChangePassword}
-              value={password}
-              placeholder=""
-            />
-            {showSubmitError && <p className="err-msg">*{errorMsg}</p>}
-          </div>
-          <button className="login-button" type="submit" data-testid="login">
-            Login
-          </button>
-        </form>
       </div>
-      <img
-        src="https://res.cloudinary.com/dak8sudez/image/upload/v1741533740/Rectangle_1456_1_m6swv9.png"
-        alt="website login"
-        className="login-image"
-      />
+      <div className="login-image-container">
+        <img
+          src="https://res.cloudinary.com/dak8sudez/image/upload/v1741533740/Rectangle_1456_1_m6swv9.png"
+          alt="website login"
+          className="login-image"
+        />
+      </div>
     </div>
   )
 }

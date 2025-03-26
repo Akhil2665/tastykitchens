@@ -4,7 +4,6 @@ import './index.css'
 
 const FoodItemCounter = props => {
   const {onClickedIncrement, onClickedDecrement, quantity} = props
-  // console.log(id, quantity, 'quant')
   const onIncrement = () => onClickedIncrement()
   const onDecrement = () => onClickedDecrement()
 

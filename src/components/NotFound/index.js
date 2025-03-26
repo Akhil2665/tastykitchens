@@ -3,8 +3,6 @@ import {useHistory, Link} from 'react-router-dom'
 import './index.css'
 
 function NotFound() {
-  const history = useHistory()
-
   return (
     <div className="page-not-found-container">
       <img
