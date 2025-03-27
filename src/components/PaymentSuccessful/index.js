@@ -21,7 +21,7 @@ const PaymentSuccessful = () => {
         </p>
         <Link to="/" className="link-item">
           <button className="home-page-btn" type="button">
-            Go To Home
+            Go To Home Page
           </button>
         </Link>
       </div>

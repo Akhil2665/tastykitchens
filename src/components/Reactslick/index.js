@@ -7,14 +7,13 @@ const Reactslick = props => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 700,
     slidesToShow: 1,
-    swipeToSlide: true,
+    dotsClass: 'slick-dots',
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
-    pauseOnHover: true,
-    lazyLoad: true,
+    autoplaySpeed: 3000,
+    adaptiveHeight: true,
   }
   console.log(carousalImagesList, 'carousalImagesList')
 
@@ -22,13 +21,12 @@ const Reactslick = props => {
     <>
       <Slider {...settings}>
         {carousalImagesList.map(eachData => (
-          <div className="carousal-image-container" key={eachData.id}>
-            <img
-              src={eachData.imageUrl}
-              alt="offer"
-              className="carousal-image"
-            />
-          </div>
+          <img
+            src={eachData.imageUrl}
+            key="carousal-image"
+            alt="offer"
+            className="carousal-image"
+          />
         ))}
       </Slider>
     </>

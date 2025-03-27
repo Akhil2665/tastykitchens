@@ -18,13 +18,12 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-const cartData = JSON.parse(localStorage.getItem('cartData')) || []
+// const cartData = JSON.parse(localStorage.getItem('cartData')) || []
 
 class AddFood extends Component {
   state = {
     foodItemsList: [],
     restaurantData: {},
-    cartList: cartData,
     apiStatus: apiStatusConstants.initial,
   }
 
@@ -114,10 +113,7 @@ class AddFood extends Component {
   }
 
   renderLoadingView = () => (
-    <div
-      className="products-loader-container"
-      testid="restaurant-details-loader"
-    >
+    <div className="products-loader-container">
       <Loader type="TailSpin" color="#f7931e" height="50" width="50" />
     </div>
   )

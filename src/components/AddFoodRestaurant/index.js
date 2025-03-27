@@ -9,11 +9,11 @@ const AddFoodRestaurant = props => {
     imageUrl,
     costForTwo,
     cuisine,
-    id,
     location,
     name,
     rating,
     reviewsCount,
+    id,
   } = restaurantDetails
 
   return (
@@ -36,11 +36,13 @@ const AddFoodRestaurant = props => {
               </div>
               <p className="total-ratings">{reviewsCount}+ ratings</p>
             </div>
-            <p className="starting-price">
-              <FaRupeeSign />
-              {costForTwo}
-            </p>
-            <p className="cost-for-two">Cost for two</p>
+            <div className="restaurant-price-details">
+              <p className="starting-price">
+                <FaRupeeSign />
+                {costForTwo}
+              </p>
+              <p className="cost-for-two">Cost for two</p>
+            </div>
           </div>
         </div>
       </div>

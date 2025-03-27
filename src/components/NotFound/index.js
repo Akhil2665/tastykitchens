@@ -1,4 +1,4 @@
-import {useHistory, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import './index.css'
 

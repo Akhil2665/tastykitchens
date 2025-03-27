@@ -8,6 +8,7 @@
   margin-bottom: 52px;
   padding: 10px;
 }
+
 .restaurant-image {
   height: 160px;
   width: 220px;
@@ -24,6 +25,21 @@
   text-decoration: none;
   color: black;
 }
+@media (min-width: 768px) {
+  .restaurant-list-item {
+    width: 100%;
+  }
+  .restaurant-image {
+    width: 50%;
+  }
+  .restaurant-details-container {
+    width: 45%;
+  }
+  .link-item {
+    width: 33%;
+  }
+}
+
 .restaurant-name {
   font-weight: 500;
   font-size: 24px;
@@ -35,6 +51,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+@media (min-width: 768px) {
+  .restaurant-name {
+    font-weight: 500;
+    font-size: 24px;
+    width: 90%;
+  }
 }
 .rating-icon {
   color: #ffcc00;

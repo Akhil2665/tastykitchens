@@ -3,16 +3,7 @@
   width: 95%;
   margin: 10px;
 }
-.carousal-image-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.offer-list {
-  list-style-type: none;
-}
+
 @media (min-width: 768px) {
   .carousal-image {
     height: 380px;

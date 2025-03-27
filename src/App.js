@@ -7,12 +7,8 @@ import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 import AddFood from './components/AddFood'
 import Cart from './components/Cart'
-import PaymentSuccessful from './components/PaymentSuccessful'
 
 import './App.css'
-
-// const storedCartList = JSON.parse(localStorage.getItem('cartData'))
-// const initialCartArray = storedCartList || []
 
 class App extends Component {
   state = {
@@ -36,7 +32,6 @@ class App extends Component {
 
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute exact path="/cart" component={Cart} />
-
           <ProtectedRoute
             exact
             path="/restaurant/:restaurantId"

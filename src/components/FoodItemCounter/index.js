@@ -9,13 +9,11 @@ const FoodItemCounter = props => {
 
   return (
     <div className="counter">
-      <button type="button" onClick={onDecrement} testid="decrement-count">
+      <button type="button" onClick={onDecrement}>
         -
       </button>
-      <div className="count-value" testid="active-count">
-        {quantity}
-      </div>
-      <button type="button" onClick={onIncrement} testid="increment-count">
+      <div className="count-value">{quantity}</div>
+      <button type="button" onClick={onIncrement}>
         +
       </button>
     </div>

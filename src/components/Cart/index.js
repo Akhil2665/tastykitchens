@@ -1,7 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import React, {Component, useContext} from 'react'
-import {Link} from 'react-router-dom'
-
+import {Component} from 'react'
 import {BiRupee} from 'react-icons/bi'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -110,10 +108,10 @@ class Cart extends Component {
   }
 
   removeCartItem = id => {
-    const {cartData} = this.state
+    const cartData = this.getDataFromLocalStorage() || []
     const updatedList = cartData.filter(eachItem => eachItem.id !== id)
     this.setState({cartData: updatedList}, this.getTheCartData)
-    localStorage.setItem('cartData', JSON.stringify(cartData) || [])
+    localStorage.setItem('cartData', JSON.stringify(updatedList) || [])
   }
 
   paymentSuccessfulView = () => <PaymentSuccessful />
@@ -124,7 +122,7 @@ class Cart extends Component {
   }
 
   cartItemsView = () => {
-    const {cartData} = this.state
+    const cartData = this.getDataFromLocalStorage() || []
     console.log('cartDataCart', cartData)
     const totalValue = this.calculateTheTotalAmount()
     return (
@@ -165,9 +163,7 @@ class Cart extends Component {
               </h1>
               <div className="cart-route-total-order-value-rupees">
                 <BiRupee className="total-price" />
-                <p testid="total-price" className="total-price">
-                  {totalValue}.00
-                </p>
+                <p className="total-price">{totalValue}.00</p>
               </div>
             </div>
             <div className="order-now-btn-container">

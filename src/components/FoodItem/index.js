@@ -85,21 +85,19 @@ class FoodItem extends Component {
   renderAddButton = () => {
     const {quantityVal} = this.state
     return quantityVal > 0 ? (
-      <div className="counter">
+      <div className="food-item-counter">
         <button
           type="button"
           onClick={this.onClickedDecrement}
-          testid="decrement-count"
+          className="cart-quantity-btn"
         >
           -
         </button>
-        <p className="count-value" testid="active-count">
-          {quantityVal}
-        </p>
+        <p className="count-value">{quantityVal}</p>
         <button
           type="button"
           onClick={this.onClickedIncrement}
-          testid="increment-count"
+          className="cart-quantity-btn"
         >
           +
         </button>
@@ -113,9 +111,9 @@ class FoodItem extends Component {
 
   render() {
     const {foodItemDetails} = this.props
-    const {id, imageUrl, name, cost, rating} = foodItemDetails
+    const {imageUrl, name, cost, rating} = foodItemDetails
     return (
-      <li className="food-list-item" testid="foodItem">
+      <li className="food-list-item">
         <img src={imageUrl} className="food-image" alt={name} />
         <div className="food-item-details">
           <h1 className="food-name">{name}</h1>

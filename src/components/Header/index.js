@@ -20,10 +20,37 @@ class Header extends Component {
     history.replace('/login')
   }
 
+  navContainer = () => (
+    <nav className="nav-container">
+      <ul className="nav-list">
+        <Link to="/" className="nav-link">
+          <li className="nav-item" key="HOME">
+            Home
+          </li>
+        </Link>
+        <Link to="/cart" className="nav-link">
+          <li className="nav-item" key="CART">
+            Cart
+          </li>
+        </Link>
+        <li className="nav-item" key="DESKLOGOUT">
+          <button
+            type="button"
+            onClick={this.onClikedLogout}
+            className="logout-button"
+          >
+            Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+  )
+
   render() {
+    const {cart} = this.state
     const storedCartList = JSON.parse(localStorage.getItem('cartData')) || []
     const cartLength = storedCartList.length
-    console.log(cartLength, 'cartlength')
+    console.log(cartLength, cart, 'cartlength')
     const overlayStyles = {
       backgroundColor: '#ffff',
       width: '100%',
@@ -45,29 +72,7 @@ class Header extends Component {
             </Link>
             <h1 className="logo-heading">Tasty Kitchens</h1>
           </div>
-          <nav className="nav-container">
-            <ul className="nav-list">
-              <Link to="/" className="nav-link">
-                <li className="nav-item" key="HOME">
-                  Home
-                </li>
-              </Link>
-              <Link to="/cart" className="nav-link">
-                <li className="nav-item" key="CART">
-                  Cart
-                </li>
-              </Link>
-              <li ClassName="nav-item" key="DESKLOGOUT">
-                <button
-                  type="button"
-                  onClick={this.onClikedLogout}
-                  className="logout-button"
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </nav>
+          {this.navContainer()}
         </div>
         <div className="mobile-navbar">
           <div className="logo-container">
@@ -96,27 +101,7 @@ class Header extends Component {
                 <>
                   <div className="mobile-popup-header-container">
                     <nav className="nav-container">
-                      <ul className="nav-mobile-list">
-                        <Link to="/" className="nav-link">
-                          <li className="nav-item" key="HOME">
-                            Home
-                          </li>
-                        </Link>
-                        <Link to="/cart" className="nav-link">
-                          <li className="nav-item" key="CART">
-                            Cart
-                          </li>
-                        </Link>
-                        <li className="nav-item" key="logout-button">
-                          <button
-                            type="button"
-                            onClick={this.onClikedLogout}
-                            className="logout-button"
-                          >
-                            Logout
-                          </button>
-                        </li>
-                      </ul>
+                      {this.navContainer()}
                       <button
                         className="close-icon-btn"
                         type="button"

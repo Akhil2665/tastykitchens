@@ -4,22 +4,21 @@
   align-items: center;
   background-image: url('https://res.cloudinary.com/dqmmxqwiq/image/upload/v1680364676/Tasty%20Kitchen%20React%20mini%20Project/Frame_279_gvkieb.png');
   background-size: cover;
-  height: 280px;
+  min-height: 280px;
   width: 96%;
   border-radius: 12px;
   color: white;
   margin: 20px;
   padding: 10px;
   overflow: hidden;
-  font-size: 14px;
-  line-height: normal;
 }
 .restaurant-full-image {
   height: 240px;
   width: 240px;
-  border-bottom-right-radius: 50%;
+  border-radius: 50%;
   margin-left: -100px;
   margin-right: 10px;
+  margin-top: -140px;
 }
 .restaurant-rating-container {
   display: flex;
@@ -35,21 +34,43 @@
   justify-content: space-around;
   width: 60%;
 }
+.restaurant-rating-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-right: 2px solid white;
+  height: 30px;
+}
+.restaurant-price-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 @media (min-width: 768px) {
   .restaurant-full-image {
     height: 320px;
     width: 600px;
-    border-radius: 12px;
+    border-radius: 20px;
     margin-right: 20px;
+    padding-left: 20px;
+    margin-left: 10px;
+    margin-top: 8px;
   }
   .restro-name {
     font-size: 24px;
+  }
+  .location {
+    font-size: 14px;
   }
   .restaurant-full-details-card {
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: #333333;
+    width: 98%;
     height: 380px;
     border-radius: 12px;
     color: white;

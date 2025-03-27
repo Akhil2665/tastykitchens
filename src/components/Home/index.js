@@ -3,6 +3,7 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {FaAngleLeft, FaAngleRight} from 'react-icons/fa'
+import {BsFilterLeft} from 'react-icons/bs'
 
 import Reactslick from '../Reactslick'
 import RestaurantListItem from '../RestaurantListItem'
@@ -88,10 +89,7 @@ class Home extends Component {
     switch (carousalApiStatus) {
       case apiStatusConstants.inProgress:
         return (
-          <div
-            className="home-slider-container"
-            testid="restaurants-offers-loader"
-          >
+          <div className="home-slider-container">
             <Loader type="ThreeDots" color="#F7931E" height="50" width="50" />
           </div>
         )
@@ -212,46 +210,17 @@ class Home extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="products-loader-container" testid="restaurants-list-loader">
+    <div className="products-loader-container">
       <Loader type="TailSpin" color="#f7931e" height="50" width="50" />
     </div>
   )
 
   renderProductsListView = () => {
-    const {restaurantList, sortByOption, pageNumber} = this.state
-    const totalPages = 4
+    const {restaurantList} = this.state
+
     return (
       <>
-        <Header />
         <div className="app-container">
-          {this.renderSliderView()}
-          <div className="filter-bar">
-            <h1 className="restaurants-heading">Popular Restaurants</h1>
-            <div className="about-and-filter">
-              <p className="restaurants-about">
-                Select Your favourite restaurant special dish and make your day
-                happy...
-              </p>
-              <div className="selector-container">
-                <p className="sort-heading">Sort by </p>
-                <select
-                  className="select-element"
-                  onChange={this.onChangeSortByValue}
-                  value={sortByOption}
-                >
-                  {sortByOptions.map(eachOption => (
-                    <option
-                      className="option-element"
-                      value={eachOption.value}
-                      key={eachOption.id}
-                    >
-                      {eachOption.displayText}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
           <ul className="restaurant-list-container">
             {restaurantList.map(eachObj => (
               <RestaurantListItem
@@ -260,38 +229,76 @@ class Home extends Component {
               />
             ))}
           </ul>
-          <div className="page-selection-container">
-            <button
-              type="button"
-              onClick={this.onDecrementPageValue}
-              testid="pagination-left-button"
-            >
-              -
-            </button>
-            <span className="page-number" testid="active-page-number">
-              {pageNumber}
-            </span>
-            of {totalPages}
-            <button
-              type="button"
-              onClick={this.onIncrementPageValue}
-              testid="pagination-right-button"
-            >
-              +
-            </button>
-          </div>
-          <Footer />
         </div>
       </>
     )
   }
 
+  renderFilter = () => {
+    const {sortByOption} = this.state
+    return (
+      <div className="filter-bar">
+        <h1 className="restaurants-heading">Popular Restaurants</h1>
+        <div className="about-and-filter">
+          <p className="restaurants-about">
+            Select Your favourite restaurant special dish and make your day
+            happy...
+          </p>
+          <div className="selector-container">
+            <BsFilterLeft size={25} color="#475569" />
+            <p className="sort-heading">Sort by </p>
+            <select
+              className="select-element"
+              onChange={this.onChangeSortByValue}
+              value={sortByOption}
+            >
+              {sortByOptions.map(eachOption => (
+                <option
+                  className="option-element"
+                  value={eachOption.value}
+                  key={eachOption.id}
+                >
+                  {eachOption.displayText}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
-    const {apiStatus} = this.state
+    const {apiStatus, pageNumber} = this.state
+    const totalPages = 4
     return (
       <>
+        <Header />
         <div className="home-page-container">
+          {this.renderSliderView()}
+          {this.renderFilter()}
           {this.renderResult(apiStatus)}
+          <div className="page-selection-container">
+            <button
+              type="button"
+              onClick={this.onDecrementPageValue}
+              className="pagination-btn"
+            >
+              <FaAngleLeft />
+            </button>
+            <h1 className="page-num-heading">
+              <span className="page-number">{pageNumber}</span>
+              of {totalPages}
+            </h1>
+            <button
+              type="button"
+              onClick={this.onIncrementPageValue}
+              className="pagination-btn"
+            >
+              <FaAngleRight />
+            </button>
+          </div>
+          <Footer />
         </div>
       </>
     )
@@ -300,4 +307,15 @@ class Home extends Component {
 
 export default Home
 
-//
+// return (
+//   <>
+//     <Header />
+//     <div className="home-page-content-including-slider">
+//       {this.renderSliderView()}
+//       {this.sortByRestaurant()}
+//       {this.renderDisplayRestaurantsView()}
+//       <Counter pageChangeFunction={this.getActivePage} />
+//     </div>
+//     <Footer />
+//   </>
+// )

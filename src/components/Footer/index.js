@@ -22,26 +22,10 @@ export default function Footer() {
         The only thing we are serious about is food. <br /> Contact us on
       </p>
       <div className="social-buttons-container">
-        <FaInstagram
-          testid="instagram-social-icon"
-          size={20}
-          className="social-icon"
-        />
-        <FaPinterestSquare
-          testid="pintrest-social-icon"
-          size={20}
-          className="social-icon"
-        />
-        <FaTwitter
-          testid="twitter-social-icon"
-          size={20}
-          className="social-icon"
-        />
-        <FaFacebookSquare
-          testid="facebook-social-icon"
-          size={20}
-          className="social-icon"
-        />
+        <FaInstagram size={30} />
+        <FaPinterestSquare size={30} />
+        <FaTwitter size={30} />
+        <FaFacebookSquare size={30} />
       </div>
     </div>
   )

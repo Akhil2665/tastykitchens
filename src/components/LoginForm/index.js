@@ -98,7 +98,7 @@ const LoginForm = props => {
               />
               {showSubmitError && <p className="err-msg">*{errorMsg}</p>}
             </div>
-            <button className="login-button" type="submit" data-testid="login">
+            <button className="login-button" type="submit">
               Login
             </button>
           </form>

@@ -13,6 +13,7 @@
   font-weight: 600;
   cursor: pointer;
 }
+
 .rating {
   width: 38;
   height: 16;
@@ -53,6 +54,18 @@
   margin-right: 8px;
   margin-bottom: 10px;
 }
+.food-item-counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+.count-value {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 @media (min-width: 768px) {
   .food-list-item {
     height: 260px;
@@ -63,6 +76,9 @@
     margin-right: 22px;
     margin-bottom: 52px;
     padding: 10px;
+  }
+  .food-item-counter {
+    width: 40%;
   }
   .food-image {
     width: 60%;
