@@ -55,12 +55,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 65%;
+    width: 55%;
     order: 0;
   }
   .login-image-container {
     order: 1;
-    width: 35%;
+    width: 40%;
     justify-content: center;
     margin: 0px;
   }
