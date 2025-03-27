@@ -1,7 +1,6 @@
 .login-page-container {
   display: flex;
   flex-direction: column;
-
   min-height: 100vh;
 }
 
@@ -39,7 +38,7 @@
 
 .login-image-container {
   order: 0;
-  width: 50%;
+  width: 100%;
   margin-right: -60px;
   display: flex;
   flex-direction: row;
@@ -48,6 +47,7 @@
 }
 .login-card-container {
   font-family: 'Roboto';
+  order: 1;
 }
 @media (min-width: 768px) {
   .login-card-container {
@@ -56,9 +56,10 @@
     justify-content: center;
     align-items: center;
     width: 65%;
+    order: 0;
   }
   .login-image-container {
-    order: 0;
+    order: 1;
     width: 35%;
     justify-content: center;
     margin: 0px;

@@ -81,7 +81,7 @@ const LoginForm = props => {
                 id="username"
                 onChange={onChangeUsername}
                 value={username}
-                placeholder=""
+                placeholder="Enter Username"
               />
             </div>
             <div className="input-container">
@@ -94,7 +94,7 @@ const LoginForm = props => {
                 id="password"
                 onChange={onChangePassword}
                 value={password}
-                placeholder=""
+                placeholder="Enter Userpassword"
               />
               {showSubmitError && <p className="err-msg">*{errorMsg}</p>}
             </div>
