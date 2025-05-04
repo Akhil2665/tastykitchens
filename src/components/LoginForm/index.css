@@ -109,6 +109,8 @@
 }
 @media (min-width: 768px) {
   .input {
+    padding-left: 12px;
+    border-radius: 10px;
   }
 }
 .login-button {
