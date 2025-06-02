@@ -49,7 +49,7 @@ class App extends Component {
           />
           <ProtectedRoute
             exact
-            path="/paymentsuccessful/privacy-policy"
+            path="/privacy-policy"
             component={AppPrivacyPolicy}
           />
 
