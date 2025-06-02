@@ -9,6 +9,9 @@ import AddFood from './components/AddFood'
 import Cart from './components/Cart'
 
 import './App.css'
+import Checkout from './components/Checkout'
+import PaymentSuccessful from './components/PaymentSuccessful'
+import AppPrivacyPolicy from './components/AppPrivacyPolicy'
 
 class App extends Component {
   state = {
@@ -32,11 +35,24 @@ class App extends Component {
 
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute exact path="/cart" component={Cart} />
+
           <ProtectedRoute
             exact
             path="/restaurant/:restaurantId"
             component={AddFood}
           />
+          <ProtectedRoute exact path="/checkout" component={Checkout} />
+          <ProtectedRoute
+            exact
+            path="/paymentsuccessful/orderplaced"
+            component={PaymentSuccessful}
+          />
+          <ProtectedRoute
+            exact
+            path="/paymentsuccessful/privacy-policy"
+            component={AppPrivacyPolicy}
+          />
+
           <Route exact path="/not-found" component={NotFound} />
           <Redirect to="/not-found" />
         </Switch>

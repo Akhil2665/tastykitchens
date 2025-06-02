@@ -20,7 +20,7 @@ const PaymentSuccessful = () => {
           Thank you for ordering Your payment is successfully completed.
         </p>
         <Link to="/" className="link-item">
-          <button className="home-page-btn" type="button">
+          <button className="payment-home-page-btn" type="button">
             Go To Home Page
           </button>
         </Link>

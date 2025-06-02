@@ -6,7 +6,7 @@
   min-height: 100vh;
 }
 
-.home-page-btn {
+.payment-home-page-btn {
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
@@ -21,4 +21,12 @@
 .link-item {
   text-decoration: none;
   color: black;
+  align-self: center;
+}
+
+@media (min-width: 768px) {
+  .link-item {
+    width: 33%;
+    text-align: center;
+  }
 }

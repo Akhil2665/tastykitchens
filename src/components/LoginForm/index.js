@@ -51,6 +51,33 @@ const LoginForm = props => {
     }
   }
 
+  const handleGuest = async e => {
+    e.preventDefault()
+    const apiUrl = 'https://apis.ccbp.in/login'
+    const userdemoDetails = {
+      username: process.env.REACT_APP_USER_NAME,
+      password: process.env.REACT_APP_USER_PASSWORD,
+    }
+    console.log(userdemoDetails)
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userdemoDetails),
+    }
+
+    const response = await fetch(apiUrl, options)
+    const data = await response.json()
+    console.log(data)
+
+    if (response.ok) {
+      setShowSubmitError(false)
+      setErrorMsg('')
+      getLogin(data.jwt_token)
+    } else {
+      setShowSubmitError(true)
+      setErrorMsg(data.error_msg)
+    }
+  }
+
   const jwtToken = Cookies.get('jwt_token')
   console.log(jwtToken)
   if (jwtToken !== undefined) {
@@ -100,6 +127,13 @@ const LoginForm = props => {
             </div>
             <button className="login-button" type="submit">
               Login
+            </button>
+            <button
+              className="login-button"
+              type="button"
+              onClick={handleGuest}
+            >
+              Guest
             </button>
           </form>
         </div>

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import {Component} from 'react'
+import {Redirect, Route} from 'react-router-dom'
 import {BiRupee} from 'react-icons/bi'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -97,8 +98,10 @@ class Cart extends Component {
   }
 
   placeOrder = () => {
-    this.setState({cartStatus: cartStatusConstants.paymentSuccess})
-    localStorage.clear('cartData')
+    // this.setState({cartStatus: cartStatusConstants.paymentSuccess})
+    const {history} = this.props
+    history.push('/checkout')
+    // localStorage.clear('cartData')
   }
 
   cartEmptyView = () => {
