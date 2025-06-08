@@ -19,7 +19,7 @@ const LoginForm = props => {
   }
 
   const getLogin = jwtToken => {
-    console.log(jwtToken)
+    // console.log(jwtToken)
     Cookies.set('jwt_token', jwtToken, {expires: 30})
     const {history} = props
     history.replace('/')
@@ -39,7 +39,7 @@ const LoginForm = props => {
     }
     const response = await fetch(apiUrl, options)
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
 
     if (response.ok) {
       setShowSubmitError(false)
@@ -58,7 +58,7 @@ const LoginForm = props => {
       username: process.env.REACT_APP_USER_NAME,
       password: process.env.REACT_APP_USER_PASSWORD,
     }
-    console.log(userdemoDetails)
+    // console.log(userdemoDetails)
     const options = {
       method: 'POST',
       body: JSON.stringify(userdemoDetails),
@@ -66,7 +66,7 @@ const LoginForm = props => {
 
     const response = await fetch(apiUrl, options)
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
 
     if (response.ok) {
       setShowSubmitError(false)
