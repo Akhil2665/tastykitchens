@@ -125,16 +125,18 @@ const LoginForm = props => {
               />
               {showSubmitError && <p className="err-msg">*{errorMsg}</p>}
             </div>
-            <button className="login-button" type="submit">
-              Login
-            </button>
-            <button
-              className="login-button"
-              type="button"
-              onClick={handleGuest}
-            >
-              Guest
-            </button>
+            <div className="login-button-container">
+              <button className="login-button" type="submit">
+                Login
+              </button>
+              <button
+                className="guest-login-button"
+                type="button"
+                onClick={handleGuest}
+              >
+                Guest
+              </button>
+            </div>
           </form>
         </div>
       </div>

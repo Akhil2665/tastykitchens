@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
+import axios from 'axios'
 import './index.css'
 import Header from '../Header'
 import Footer from '../Footer'
@@ -19,33 +20,6 @@ function Checkout() {
   const [sameAsShipping, setSameAsShipping] = useState(true)
   const orderItems = JSON.parse(localStorage.getItem('cartData'))
   const history = useHistory()
-
-  // const orderItems = [
-  //   {
-  //     id: 1,
-  //     name: 'Micro Backpack',
-  //     variant: 'Moss',
-  //     size: '5L',
-  //     price: 70.0,
-  //     imageUrl: 'https://placehold.co/60x60/E0E0E0/333333?text=Bag', // Placeholder image
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Small Stuff Satchel',
-  //     variant: 'Sand',
-  //     size: '16L',
-  //     price: 180.0,
-  //     imageUrl: 'https://placehold.co/60x60/E0E0E0/333333?text=Satchel', // Placeholder image
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Carry Clutch',
-  //     variant: 'White and Black',
-  //     size: 'Small',
-  //     price: 70.0,
-  //     imageUrl: 'https://placehold.co/60x60/E0E0E0/333333?text=Clutch', // Placeholder image
-  //   },
-  // ]
 
   console.log(orderItems, 'orderitesm')
 
@@ -71,12 +45,20 @@ function Checkout() {
       postalCode,
       sameAsShipping,
     })
-    history.push('/paymentsuccessful/orderplaced')
   }
 
-  // const handleContinueBtn = () => {
-  //   history.push('/')
-  // }
+  const handlePayNow = async () => {
+    const response = await axios.post('/api/v1/payment/process', {
+      amount: 24000,
+    })
+    // const data = await response.json()
+    console.log(response, 'data from payment processing')
+    // if (data.status === 'success') {
+    //   history.push('/paymentsuccessful/orderplaced')
+    // } else {
+    //   console.error('Payment processing failed:', data.error)
+    // }
+  }
 
   return (
     <>
@@ -99,59 +81,6 @@ function Checkout() {
               />
             </section>
 
-            {/* Payment Details */}
-            {/* <section className="form-group">
-              <h2>Payment details</h2>
-              <label htmlFor="cardName">Name on card</label>
-              <input
-                type="text"
-                id="cardName"
-                value={cardName}
-                onChange={e => setCardName(e.target.value)}
-                required
-                placeholder="Name as it appears on card"
-              />
-              <label htmlFor="cardNumber">Card number</label>
-              <input
-                type="text"
-                id="cardNumber"
-                value={cardNumber}
-                onChange={e => setCardNumber(e.target.value)}
-                required
-                placeholder="XXXX XXXX XXXX XXXX"
-                pattern="[0-9]{13,16}" // Basic pattern for card numbers
-              />
-              <div className="form-row">
-                <div className="form-column">
-                  <label htmlFor="expirationDate">
-                    Expiration date (MM/YY)
-                  </label>
-                  <input
-                    type="text"
-                    id="expirationDate"
-                    value={expirationDate}
-                    onChange={e => setExpirationDate(e.target.value)}
-                    required
-                    placeholder="MM/YY"
-                    pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" // Basic pattern for MM/YY
-                  />
-                </div>
-                <div className="form-column">
-                  <label htmlFor="cvc">CVC</label>
-                  <input
-                    type="text"
-                    id="cvc"
-                    value={cvc}
-                    onChange={e => setCvc(e.target.value)}
-                    required
-                    placeholder="XXX"
-                    pattern="[0-9]{3,4}"
-                  />
-                </div>
-              </div>
-            </section> */}
-
-            {/* Shipping Address */}
             <section className="form-group">
               <h2>Shipping address</h2>
               <label htmlFor="company">Company (optional)</label>
@@ -238,7 +167,16 @@ function Checkout() {
               You wont be charged until the next step.
             </p>
             <button type="submit" className="continue-button">
-              Continue
+              Pay now
+              {/* <form>
+                <script
+                  src="https://checkout.razorpay.com/v1/payment-button.js"
+                  data-payment_button_id="pl_QcJ3aW3Xz93qjP"
+                  async
+                >
+                  {' '}
+                </script>{' '}
+              </form> */}
             </button>
           </form>
         </div>
@@ -279,6 +217,13 @@ function Checkout() {
               <span>Total</span>
               <span>${total.toFixed(2)}</span>
             </div>
+            <button
+              type="button"
+              className="continue-button"
+              onClick={handlePayNow}
+            >
+              Pay now
+            </button>
           </div>
         </div>
       </div>

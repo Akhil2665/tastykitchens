@@ -27,6 +27,6 @@
 @media (min-width: 768px) {
   .link-item {
     width: 33%;
-    text-align: center;
+    /* text-align: center; */
   }
 }
