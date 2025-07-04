@@ -111,7 +111,7 @@ const GlobalStyles = () => (
       .page-container {
         padding: 1.5rem; /* md:p-6 */
       }
-    }
+    }  
 
     .page-title {
       font-size: 1.5rem; /* text-2xl */

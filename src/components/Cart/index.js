@@ -106,7 +106,7 @@ class Cart extends Component {
 
   cartEmptyView = () => {
     const {cartData} = this.state
-    console.log('cartDataCart', cartData)
+
     return <NoOrders />
   }
 
@@ -126,7 +126,7 @@ class Cart extends Component {
 
   cartItemsView = () => {
     const cartData = this.getDataFromLocalStorage() || []
-    console.log('cartDataCart', cartData)
+
     const totalValue = this.calculateTheTotalAmount()
     return (
       <>

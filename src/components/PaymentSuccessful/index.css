@@ -7,12 +7,15 @@
 }
 
 .payment-home-page-btn {
-  padding: 10px 20px;
+  padding: 10px 14px;
   border-radius: 8px;
   border: none;
   color: white;
   background: #f7931e;
   cursor: pointer;
+  text-align: center;
+  width: 160px;
+  margin: auto;
 }
 
 .home-page-btn:hover {
@@ -21,12 +24,4 @@
 .link-item {
   text-decoration: none;
   color: black;
-  align-self: center;
-}
-
-@media (min-width: 768px) {
-  .link-item {
-    width: 33%;
-    /* text-align: center; */
-  }
 }

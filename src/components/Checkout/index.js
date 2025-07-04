@@ -1,59 +1,83 @@
+/* global Razorpay */
+
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
+
+import {BiRupee} from 'react-icons/bi'
+
 import './index.css'
 import Header from '../Header'
 import Footer from '../Footer'
 
 function Checkout() {
-  const [email, setEmail] = useState('abc@gamil.com')
-  const [cardName, setCardName] = useState('')
-  const [cardNumber, setCardNumber] = useState('')
-  const [expirationDate, setExpirationDate] = useState('')
-  const [cvc, setCvc] = useState('')
-  const [company, setCompany] = useState('neo')
-  const [address, setAddress] = useState('123')
-  const [apartment, setApartment] = useState('tnr')
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [company, setCompany] = useState('')
+  const [address, setAddress] = useState('')
+  const [apartment, setApartment] = useState('')
   const [city, setCity] = useState('knr')
-  const [stateProvince, setStateProvince] = useState('ts')
-  const [postalCode, setPostalCode] = useState('505001')
+  const [stateProvince, setStateProvince] = useState('')
+  const [postalCode, setPostalCode] = useState('')
   const [sameAsShipping, setSameAsShipping] = useState(true)
-  const orderItems = JSON.parse(localStorage.getItem('cartData'))
+  const [enablePayBtn, setEnablePayBtn] = useState(false)
+  const orderItems = JSON.parse(localStorage.getItem('cartData')) || []
   const history = useHistory()
 
-  console.log(orderItems, 'orderitesm')
+  // console.log(orderItems, 'orderitesm')
 
-  const subtotal = orderItems.reduce((sum, item) => sum + item.cost, 0)
+  const subtotal = orderItems.reduce(
+    (sum, item) => sum + item.cost * item.quantity,
+    0,
+  )
   const shipping = 15.0
   const taxes = 26.8
   const total = subtotal + shipping + taxes
 
   const handleSubmit = e => {
     e.preventDefault()
-
-    console.log('Form submitted!', {
-      email,
-      cardName,
-      cardNumber,
-      expirationDate,
-      cvc,
-      company,
-      address,
-      apartment,
-      city,
-      stateProvince,
-      postalCode,
-      sameAsShipping,
-    })
+    setEnablePayBtn(true)
   }
 
   const handlePayNow = async () => {
-    const response = await axios.post('/api/v1/payment/process', {
-      amount: 24000,
-    })
-    // const data = await response.json()
-    console.log(response, 'data from payment processing')
+    try {
+      const {data: keyData} = await axios.get('/api/v1/getkey')
+      const {key} = keyData
+      console.log(key, 'razorpay key')
+      const {data: orderData} = await axios.post('/api/v1/payment/process', {
+        amount: total,
+      })
+      const {order} = orderData
+      console.log(order, 'order data from payment processing')
+
+      const options = {
+        key,
+        amount: order.amount,
+        name: 'Tastykitchens',
+        description: 'Tastykitchens Transaction',
+        image: 'https://example.com/your_logo',
+        order_id: order.id,
+        callback_url: '/api/v1/paymentverify',
+        prefill: {
+          name: 'Gaurav Kumar',
+          email: 'akhil@example.com',
+          contact: '9000090000',
+        },
+        notes: {
+          address: 'Razorpay Corporate Office',
+        },
+        theme: {
+          color: '#3399cc',
+        },
+      }
+      const rzp = new Razorpay(options)
+      rzp.open()
+    } catch (error) {
+      console.error('Error fetching Razorpay key:', error)
+    }
+    // console.log(response, data, 'data from payment processing')
     // if (data.status === 'success') {
+    //   console.log('Payment processing successful:', data.order)
     //   history.push('/paymentsuccessful/orderplaced')
     // } else {
     //   console.error('Payment processing failed:', data.error)
@@ -78,6 +102,15 @@ function Checkout() {
                 onChange={e => setEmail(e.target.value)}
                 required
                 placeholder="Enter your email"
+              />
+              <label htmlFor="contactNumber">Contact Number</label>
+              <input
+                type="text"
+                id="contactNumber"
+                value={phoneNumber}
+                onChange={e => setPhoneNumber(e.target.value)}
+                required
+                placeholder="Enter your Contact Number"
               />
             </section>
 
@@ -167,7 +200,7 @@ function Checkout() {
               You wont be charged until the next step.
             </p>
             <button type="submit" className="continue-button">
-              Pay now
+              Continue
               {/* <form>
                 <script
                   src="https://checkout.razorpay.com/v1/payment-button.js"
@@ -195,7 +228,17 @@ function Checkout() {
                 <div className="item-details">
                   <p className="item-name">{item.name}</p>
                 </div>
-                <p className="item-price">${item.cost}</p>
+                <div className="item-quantity-container">
+                  <p className="qty-heading">
+                    Qty {' x '}
+                    <span className="item-quantity"> {item.quantity}</span>
+                  </p>
+                  {/* <p></p> */}
+                </div>
+                <p className="item-price price">
+                  <BiRupee className="price-icon" />
+                  {item.cost * item.quantity}
+                </p>
               </div>
             ))}
           </div>
@@ -203,24 +246,38 @@ function Checkout() {
           <div className="order-summary-details">
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>${subtotal}</span>
+              <span className="price">
+                <BiRupee className="price-icon" />
+                {subtotal}
+              </span>
             </div>
             <div className="summary-row">
               <span>Shipping</span>
-              <span>${shipping.toFixed(2)}</span>
+              <span className="price">
+                <BiRupee className="price-icon" />
+                {shipping.toFixed(2)}
+              </span>
             </div>
             <div className="summary-row">
               <span>Taxes</span>
-              <span>${taxes.toFixed(2)}</span>
+              <span className="price">
+                <BiRupee className="price-icon" />
+                {taxes.toFixed(2)}
+              </span>
             </div>
             <div className="summary-row total-row">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span className="price">
+                <BiRupee className="price-icon" />
+                {total.toFixed(2)}
+              </span>
             </div>
             <button
               type="button"
               className="continue-button"
               onClick={handlePayNow}
+              disabled={!enablePayBtn}
+              style={{backgroundColor: enablePayBtn ? '#46c54e' : '#ccc'}}
             >
               Pay now
             </button>

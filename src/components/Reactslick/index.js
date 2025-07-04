@@ -15,7 +15,6 @@ const Reactslick = props => {
     autoplaySpeed: 3000,
     adaptiveHeight: true,
   }
-  console.log(carousalImagesList, 'carousalImagesList')
 
   return (
     <>

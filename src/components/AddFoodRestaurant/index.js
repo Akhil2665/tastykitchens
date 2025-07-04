@@ -4,7 +4,7 @@ import './index.css'
 
 const AddFoodRestaurant = props => {
   const {restaurantDetails} = props
-  console.log(restaurantDetails)
+
   const {
     imageUrl,
     costForTwo,

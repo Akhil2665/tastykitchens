@@ -50,7 +50,7 @@ class Header extends Component {
     const {cart} = this.state
     const storedCartList = JSON.parse(localStorage.getItem('cartData')) || []
     const cartLength = storedCartList.length
-    console.log(cartLength, cart, 'cartlength')
+    // console.log(cartLength, cart, 'cartlength')
     const overlayStyles = {
       backgroundColor: '#ffff',
       width: '100%',

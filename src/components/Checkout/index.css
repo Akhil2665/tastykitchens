@@ -94,25 +94,24 @@
 }
 
 .continue-button {
-  background-color: #c5a146; /* Purple button color */
+  background-color: #aa9e1d; /* Purple button color */
   color: #fff;
   padding: 15px 30px;
   border: none;
   border-radius: 8px; /* Rounded button */
-  font-size: 18px; /* Converted from 1.1rem */
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
-  width: auto; /* Adjust width based on content */
-  display: block; /* Ensures button takes full width if needed, but auto for content */
-  margin-left: auto; /* Pushes button to the right */
+  width: auto;
+  display: block;
+  margin-left: auto;
 }
 
 .continue-button:hover {
-  background-color: #85611f; /* Darker purple on hover */
-  transform: translateY(-2px); /* Slight lift effect */
+  background-color: #85611f;
+  transform: translateY(-2px);
 }
-
 .continue-button:active {
   transform: translateY(0); /* Reset on click */
 }
@@ -148,7 +147,31 @@
   margin-bottom: 15px;
   gap: 15px;
 }
-
+.item-quantity-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Fixed width for quantity container */
+  line-height: 0%;
+}
+.qty-heading {
+  font-size: 11px; /* Converted from 0.85rem */
+  color: #555;
+  margin-bottom: 5px;
+  height: 26px; /* Fixed height for consistent alignment */
+  width: 54px;
+  padding: 10px 6px;
+  border: 1px solid #ddd;
+}
+.price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.price-icon {
+  font-size: 20px;
+}
 .item-image {
   width: 60px;
   height: 60px;
@@ -243,6 +266,7 @@
 
   .continue-button {
     padding: 12px 20px;
-    font-size: 16px; /* Converted from 1rem */
+    font-size: 16px;
+    margin-top: 20px; /* Converted from 1rem */
   }
 }

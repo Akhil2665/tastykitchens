@@ -43,8 +43,6 @@ class Home extends Component {
     apiStatus: apiStatusConstants.initial,
   }
 
-  // console.log(jwtTokwn)
-
   componentDidMount() {
     this.getCarousalImages()
     this.getRestaurantList()
@@ -77,7 +75,6 @@ class Home extends Component {
         carousalApiStatus: apiStatusConstants.success,
       })
     } else {
-      console.log('failed error')
       this.setState({
         carousalApiStatus: apiStatusConstants.failure,
       })
@@ -126,7 +123,6 @@ class Home extends Component {
     const response = await fetch(apiUrl, options)
     const data = await response.json()
 
-    console.log(response, data)
     if (response.ok) {
       const updatedData = data.restaurants.map(eachData => ({
         id: eachData.id,
@@ -138,7 +134,7 @@ class Home extends Component {
           totalReviews: eachData.user_rating.total_reviews,
         },
       }))
-      console.log('ok')
+
       // setRestaurantList(updatedData)
       this.setState({
         restaurantList: updatedData,
